@@ -32,28 +32,27 @@ def separationTerminal(self):
     return Group_NT, Group_T
 
 
-def newGroup_NT(self, Group_NT):
-    verif = []
-    seen = []
-    verif_unique = []
-    rm = []
-    i = 0
-    for source in Group_NT:
-        if len(Group_NT) == 1:
-            verif.append(Group_NT[source])
-            print(verif)
-            return verif
+def regroup(self, Group):
+    result = {}
+    compar = {}
+    i = 1
+    for source,values in Group.items():
+        if len(Group) == 1:
+            result[1]=source
+            print(result)
+            return result
         else:
-            verif.append(Group_NT[source])
-            i += 1
+            verif = str(values)
+            if verif not in compar:
+                compar[verif] = []
+            compar[verif].append(source)
 
-    for i in verif:
-        if i not in seen:
-            verif_unique.append(i)
-            seen.append(i)
+    for verif in compar.values():
+        result[i]=verif
+        i += 1
 
-    print(verif_unique)
-    return verif_unique
+    print(result)
+    return result
 
 def Minimization(self):
     separationTerminal(self)
