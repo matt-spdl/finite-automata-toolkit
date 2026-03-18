@@ -115,14 +115,13 @@ class Automaton:
 
 
 
-if __name__ == "__main__":
-    a = Automaton()
-    a.add_initial_state("1")
-    a.add_final_state("2")
-    a.add_state("3")
-    a.add_transition("1", "a", "2")
-    a.add_transition("2", "a", "1")
-    print(a.get_transitions_from_state("1"))
-    print(a.get_next_states("1", "a"))
-    print(a)
+a = Automaton()
+a.add_initial_state("1")
+a.add_final_state("2")
+a.add_state("3")
+a.add_transition("1", "a", "2")
+a.add_transition("2", "a", "1")
+print(a.get_transitions_from_state("1"))
+print(a.get_next_states("1", "a"))
 
+print(a)
