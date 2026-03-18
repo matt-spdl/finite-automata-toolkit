@@ -1,3 +1,5 @@
+# Mattéo
+
 from automaton.automaton import Automaton
 from pathlib import Path
 
