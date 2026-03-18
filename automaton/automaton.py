@@ -113,8 +113,6 @@ class Automaton:
                     print(f"  {state} -{symbol}-> {target}")
         return ""
 
-
-
 a = Automaton()
 a.add_initial_state("1")
 a.add_final_state("2")
