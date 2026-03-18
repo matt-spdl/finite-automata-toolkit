@@ -31,21 +31,29 @@ def separationTerminal(self):
     print(Group_T)
     return Group_NT, Group_T
 
-'''
-def newGroup(self, Group):
+
+def newGroup_NT(self, Group_NT):
     verif = []
-    i=0
-    for source in Group:
-        i += 1
-        verif[i] = Group[source]
-    for k in range(1, i+1):
-        for j in range(1, i+1):
-            if i != j:
-                if verif[i]==verif[j]:
-                
-'''
+    seen = []
+    verif_unique = []
+    rm = []
+    i = 0
+    for source in Group_NT:
+        if len(Group_NT) == 1:
+            verif.append(Group_NT[source])
+            print(verif)
+            return verif
+        else:
+            verif.append(Group_NT[source])
+            i += 1
 
+    for i in verif:
+        if i not in seen:
+            verif_unique.append(i)
+            seen.append(i)
 
+    print(verif_unique)
+    return verif_unique
 
 def Minimization(self):
     separationTerminal(self)
