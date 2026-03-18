@@ -14,7 +14,7 @@ class Automaton:
         """
         self.states = set()
         self.alphabet = set()
-        self.initial_states = None
+        self.initial_states = set()
         self.final_states = set()
         self.transitions = {}
 
@@ -111,3 +111,4 @@ class Automaton:
                 targets = self.transitions[state][symbol]
                 for target in targets:
                     print(f"  {state} -{symbol}-> {target}")
+
