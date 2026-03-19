@@ -1,5 +1,6 @@
 # Mathias
-from automaton import *
+
+import automaton
 
 def separationTerminal(self):
     Group_NT = {}
@@ -102,6 +103,19 @@ def deleteUselessState(Group, reGroup):
     return result
 
 
+def reCreateAutomaton(self, Minimize):
+    New_automaton = Automaton()
+    for source, values in Minimize.items():
+        for mini in values:
+            for symbol, targets in mini.items():
+                for target in targets:
+                    New_automaton.add_transition(source, symbol, target)
+                    if source in self.initial_states:
+                        New_automaton.add_initial_state(source)
+                    if source in self.final_states:
+                        New_automaton.add_final_state(source)
+
+    return New_automaton
 
 def Minimization(self):
     Group_NT, Group_T = separationTerminal(self)
@@ -109,9 +123,9 @@ def Minimization(self):
     Group_T = regroup(self, Group_T)
     reGroup = assemble(Group_NT, Group_T)
     Group = classification(self, reGroup)
-    deleteUselessState(Group, reGroup)
-
-
+    Minimize = deleteUselessState(Group, reGroup)
+    result = reCreateAutomaton(self, Minimize)
+    return result
 
 
 
