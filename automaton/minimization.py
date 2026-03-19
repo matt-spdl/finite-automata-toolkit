@@ -72,18 +72,34 @@ def classification(self, Group):
     result = {}
     for source, transitions in self.transitions.items():
         for symbol, targets in transitions.items():
-            if source not in self.final_states:
-                if source not in result:
-                    result[source] = {}
-                if symbol not in result[source]:
-                    result[source][symbol] = set()
-                for target in targets:
-                    for key, group in Group.items():
-                        if target in group:
-                            result[source][symbol].add(key)
+            if source not in result:
+                result[source] = {}
+            if symbol not in result[source]:
+                result[source][symbol] = set()
+            for target in targets:
+                for key, group in Group.items():
+                    if target in group:
+                        result[source][symbol].add(key)
 
     print(result)
     return (result)
+
+def deleteUselessState(Group, reGroup):
+    result = {}
+    seen = []
+
+    for source_2 in reGroup:
+        for source, values in Group.items():
+            if source in reGroup[source_2]:
+                if values not in seen:
+                    if source not in result:
+                        result[source] = []
+                    result[source].append(values)
+                    seen.append(values)
+        seen = []
+
+    print(result)
+    return result
 
 
 
@@ -91,6 +107,9 @@ def Minimization(self):
     Group_NT, Group_T = separationTerminal(self)
     Group_NT = regroup(Group_NT)
     Group_T = regroup(Group_T)
+    reGroup = assemble(Group_NT, Group_T)
+    Group = classification(self, reGroup)
+    deleteUselessState(Group, reGroup)
 
 
 
