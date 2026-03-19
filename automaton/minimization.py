@@ -93,7 +93,6 @@ def deleteUselessState(Group, reGroup):
                     seen.append(values)
         seen = []
 
-    print(result)
     return result
 
 def reCreateAutomaton(self, Minimize):
@@ -118,6 +117,7 @@ def Minimization(self):
     Group = classification(self, reGroup)
     Minimize = deleteUselessState(Group, reGroup)
     result = reCreateAutomaton(self, Minimize)
+    print(result)
     if result == self:
         print("Automaton was already minimized")
     return result
