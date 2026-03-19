@@ -105,8 +105,8 @@ def deleteUselessState(Group, reGroup):
 
 def Minimization(self):
     Group_NT, Group_T = separationTerminal(self)
-    Group_NT = regroup(Group_NT)
-    Group_T = regroup(Group_T)
+    Group_NT = regroup(self, Group_NT)
+    Group_T = regroup(self, Group_T)
     reGroup = assemble(Group_NT, Group_T)
     Group = classification(self, reGroup)
     deleteUselessState(Group, reGroup)
