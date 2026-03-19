@@ -24,12 +24,10 @@ def separationTerminal(self):
                     Group_T[source][symbol] = set()
                 for target in targets:
                     if target not in self.final_states:
-                        Group_T[source][symbol].add("NT")
+                        Group_T[source][symbol] = "NT"
                     else:
-                        Group_T[source][symbol].add("T")
+                        Group_T[source][symbol] = "T"
 
-    print(Group_NT)
-    print(Group_T)
     return Group_NT, Group_T
 
 
@@ -51,8 +49,6 @@ def regroup(self, Group):
     for verif in compar.values():
         result[i]=verif
         i += 1
-
-    print(result)
     return result
 
 def assemble(Group_NT, Group_T):
@@ -69,7 +65,7 @@ def assemble(Group_NT, Group_T):
 
     return result
 
-def classification(self, Group):
+def classification(self, reGroup):
     result = {}
     for source, transitions in self.transitions.items():
         for symbol, targets in transitions.items():
@@ -78,11 +74,9 @@ def classification(self, Group):
             if symbol not in result[source]:
                 result[source][symbol] = set()
             for target in targets:
-                for key, group in Group.items():
+                for key, group in reGroup.items():
                     if target in group:
-                        result[source][symbol].add(key)
-
-    print(result)
+                        result[source][symbol] = key
     return (result)
 
 def deleteUselessState(Group, reGroup):
@@ -93,15 +87,14 @@ def deleteUselessState(Group, reGroup):
         for source, values in Group.items():
             if source in reGroup[source_2]:
                 if values not in seen:
-                    if source not in result:
-                        result[source] = []
-                    result[source].append(values)
+                    if source_2 not in result:
+                        result[source_2] = []
+                    result[source_2].append(values)
                     seen.append(values)
         seen = []
 
     print(result)
     return result
-
 
 def reCreateAutomaton(self, Minimize):
     New_automaton = Automaton()
@@ -125,7 +118,8 @@ def Minimization(self):
     Group = classification(self, reGroup)
     Minimize = deleteUselessState(Group, reGroup)
     result = reCreateAutomaton(self, Minimize)
+    if result == self:
+        print("Automaton was already minimized")
     return result
-
 
 
