@@ -28,11 +28,11 @@ Le projet demande également de réaliser un affichage des automates.
 
 ## Répartition des tâches
 
-Louis LEMONNIER s'occupe de Standardisation / Complémentation
-Mattéo SPINDLER réalise File Manager / Display
-Mathias LEROY code la Minimisation
-Bastien POMMARD fait Complétion / Properties
-Thomas AUBERT s'occupe de la Déterminisation
+- Louis LEMONNIER s'occupe de Standardisation / Complémentation
+- Mattéo SPINDLER réalise File Manager / Display
+- Mathias LEROY code la Minimisation
+- Bastien POMMARD fait Complétion / Properties
+- Thomas AUBERT s'occupe de la Déterminisation
 
 
 
