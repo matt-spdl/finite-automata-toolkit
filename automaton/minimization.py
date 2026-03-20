@@ -1,8 +1,19 @@
 # Mathias
 
-import automaton
+from automaton.automaton import Automaton
 
 def separationTerminal(self):
+    """
+            Splits the automaton states into two dictionaries:
+            terminal states and non-terminal states,
+            then replaces their targets with "T" or "NT" depending on whether the target is terminal or not.
+
+            Args:
+                an automaton
+
+            Returns:
+                two dictionaries of dictionaries
+            """
     Group_NT = {}
     Group_T = {}
     for source, transitions in self.transitions.items():
@@ -32,6 +43,15 @@ def separationTerminal(self):
 
 
 def regroup(self, Group):
+    """
+            Groups states that have similar targets into new groups.
+
+            Args:
+                an automaton, a dictionary of dictionaries
+
+            Returns:
+                a dictionary containing lists
+            """
     result = {}
     compar = {}
     i = 1
@@ -52,6 +72,15 @@ def regroup(self, Group):
     return result
 
 def assemble(Group_NT, Group_T):
+    """
+            Merges two dictionaries into a single one.
+
+            Args:
+                two dictionaries containing lists
+
+            Returns:
+                a dictionary containing lists
+            """
     result ={}
     i = 1
 
@@ -66,6 +95,16 @@ def assemble(Group_NT, Group_T):
     return result
 
 def classification(self, reGroup):
+    """
+            Creates a dictionary of dictionaries by replacing states
+            with the new groups formed by the previous functions.
+
+            Args:
+                an automaton, a dictionary of lists
+
+            Returns:
+                a dictionary containing dictionaries
+            """
     result = {}
     for source, transitions in self.transitions.items():
         for symbol, targets in transitions.items():
@@ -80,6 +119,16 @@ def classification(self, reGroup):
     return (result)
 
 def deleteUselessState(Group, reGroup):
+    """
+            Removes duplicate states that belong to the same groups
+            in the new classification.
+
+            Args:
+                 a dictionary of lists, a dictionary of dictionaries
+
+            Returns:
+                a dictionary containing lists of dictionaries
+            """
     result = {}
     seen = []
 
@@ -96,6 +145,15 @@ def deleteUselessState(Group, reGroup):
     return result
 
 def reCreateAutomaton(self, Minimize):
+    """
+            Transforms the dictionary into a new automaton.
+
+            Args:
+                 an automaton, a dictionary of lists of dictionaries
+
+            Returns:
+                the new automaton built from the dictionary
+            """
     New_automaton = Automaton()
     for source, values in Minimize.items():
         for mini in values:
@@ -110,6 +168,15 @@ def reCreateAutomaton(self, Minimize):
     return New_automaton
 
 def Minimization(self):
+    """
+            Minimizes an automaton by applying all the steps.
+
+            Args:
+                 an automaton
+
+            Returns:
+                the minimized automaton
+            """
     Group_NT, Group_T = separationTerminal(self)
     Group_NT = regroup(self, Group_NT)
     Group_T = regroup(self, Group_T)
@@ -122,4 +189,17 @@ def Minimization(self):
         print("Automaton was already minimized")
     return result
 
-
+a = Automaton()
+a.add_initial_state("1")
+a.add_final_state("2")
+a.add_state("3")
+a.add_transition("1", "a", "2")
+a.add_transition("1", "b", "3")
+a.add_transition("2", "a", "4")
+a.add_transition("2", "b", "2")
+a.add_transition("3", "a", "2")
+a.add_transition("3", "b", "1")
+a.add_transition("4", "b", "2")
+a.add_transition("4", "a", "4")
+print(a)
+Minimization(a)
