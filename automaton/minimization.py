@@ -188,18 +188,3 @@ def Minimization(self):
     if result == self:
         print("Automaton was already minimized")
     return result
-
-a = Automaton()
-a.add_initial_state("1")
-a.add_final_state("2")
-a.add_state("3")
-a.add_transition("1", "a", "2")
-a.add_transition("1", "b", "3")
-a.add_transition("2", "a", "4")
-a.add_transition("2", "b", "2")
-a.add_transition("3", "a", "2")
-a.add_transition("3", "b", "1")
-a.add_transition("4", "b", "2")
-a.add_transition("4", "a", "4")
-print(a)
-Minimization(a)
