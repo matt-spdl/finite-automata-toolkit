@@ -52,7 +52,7 @@ def determiniser(and_origine):
         for symbole in sorted(and_origine.alphabet):
             prochain_ensemble = set()
             for etat in courant_liste:
-                cibles = and_origine.get_next_states(etat, symbole)
+                cibles = and_origine.get_target_states(etat, symbole)
                 prochain_ensemble.update(cibles)
 
             if prochain_ensemble:

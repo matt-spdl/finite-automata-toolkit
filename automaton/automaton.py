@@ -1,3 +1,38 @@
+from collections import OrderedDict
+
+class OrderedSet:
+    def __init__(self):
+        self._items = []
+
+    def add(self, item):
+        if item not in self._items:
+            self._items.append(item)
+
+    def remove(self, item):
+        self._items.remove(item)
+
+    def discard(self, item):
+        if item in self._items:
+            self._items.remove(item)
+
+    def clear(self):
+        self._items.clear()
+
+    def __contains__(self, item):
+        return item in self._items
+
+    def __iter__(self):
+        return iter(self._items)
+
+    def __len__(self):
+        return len(self._items)
+
+    def __repr__(self):
+        return ", ".join(self._items)
+
+    def __getitem__(self, index):
+        return self._items[index]
+
 class Automaton:
     """
     A class representing a finite automaton, which consists of states, an alphabet, transitions,
@@ -12,11 +47,11 @@ class Automaton:
         - An empty set of final states.
         - A dictionary for transitions.
         """
-        self.states = set()
-        self.alphabet = set()
-        self.initial_states = set()
-        self.final_states = set()
-        self.transitions = {}
+        self.states = OrderedSet()
+        self.alphabet = OrderedSet()
+        self.initial_states = OrderedSet()
+        self.final_states = OrderedSet()
+        self.transitions = OrderedDict()
 
     def add_state(self, state):
         """
@@ -29,7 +64,7 @@ class Automaton:
 
         # Initialize the transition dictionary for the new state if it doesn't exist
         if state not in self.transitions:
-            self.transitions[state] = {}
+            self.transitions[state] = OrderedDict()
 
     def add_initial_state(self, state):
         """
@@ -66,11 +101,17 @@ class Automaton:
 
         # Create the transition if it doesn't exist
         if symbol not in self.transitions[source]:
-            self.transitions[source][symbol] = set()
+            self.transitions[source][symbol] = OrderedSet()
 
         self.transitions[source][symbol].add(target)
 
-    def get_next_states(self, state, symbol):
+    def is_final_state(self, state):
+        return state in self.final_states
+
+    def is_initial_state(self, state):
+        return state in self.initial_states
+
+    def get_target_states(self, state, symbol):
         """
         Retrieves the set of target states for a given state and symbol.
 
@@ -83,7 +124,7 @@ class Automaton:
         """
         if state in self.transitions and symbol in self.transitions[state]:
             return self.transitions[state][symbol]
-        return set()
+        return OrderedSet()
 
     def get_transitions_from_state(self, state):
         """
@@ -97,9 +138,9 @@ class Automaton:
         """
         if state in self.transitions:
             return self.transitions[state]
-        return {}
+        return OrderedDict()
 
-    def __str__(self):
+    def __repr__(self):
         string = [
             f"States: {self.states}",
             f"Alphabet: {self.alphabet}",
