@@ -1,5 +1,5 @@
 # Bastien
-from automaton.automaton import *
+from automaton import Automaton
 
 def completion (old_automaton):
 
