@@ -100,26 +100,18 @@ class Automaton:
         return {}
 
     def __str__(self):
-        print(f"States: {self.states}")
-        print(f"Alphabet: {self.alphabet}")
-        print(f"Initial state: {self.initial_states}")
-        print(f"Final states: {self.final_states}")
-        print("Transitions:")
+        string = [
+            f"States: {self.states}",
+            f"Alphabet: {self.alphabet}",
+            f"Initial state: {self.initial_states}",
+            f"Final states: {self.final_states}",
+            "Transitions:"
+        ]
 
-        for state in self.transitions:
-            for symbol in self.transitions[state]:
-                targets = self.transitions[state][symbol]
+        for source in self.transitions:
+            for symbol in self.transitions[source]:
+                targets = self.transitions[source][symbol]
                 for target in targets:
-                    print(f"  {state} -{symbol}-> {target}")
-        return ""
+                    string.append(f"  {source} --{symbol}--> {target}")
 
-a = Automaton()
-a.add_initial_state("1")
-a.add_final_state("2")
-a.add_state("3")
-a.add_transition("1", "a", "2")
-a.add_transition("2", "a", "1")
-print(a.get_transitions_from_state("1"))
-print(a.get_next_states("1", "a"))
-
-print(a)
+        return "\n".join(string)

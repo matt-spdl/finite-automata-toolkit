@@ -1,7 +1,5 @@
-Ligne 1 : nombre de symboles dans l’alphabet de l’automate.
-Ligne 2 : nombre d’états.
-Ligne 3 : nombre d’états initiaux, suivi de leurs numéros.
-Ligne 4 : nombre d’états terminaux, suivi de leurs numéros.
-Ligne 5 : nombre de transitions.
-Lignes 6 et suivantes : transitions sous la forme
+Ligne 1 : liste des symboles de l’alphabet séparés par des espaces.
+Ligne 2 : indices des états initiaux séparés par des espaces.
+Ligne 3 : indices des états finaux séparés par des espaces.
+Lignes 4 et suivantes : transitions sous la forme
 <état de départ> <symbole> <état d’arrivée>
