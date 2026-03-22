@@ -3,6 +3,15 @@
 # Est complet
 # Est Standard
 
+def est_deterministe(automate):
+    if len(automate.initial_states) != 1:
+        return False
+    for etat in automate.transitions:
+        for symbole in automate.transitions[etat]:
+            if len(automate.transitions[etat][symbole]) > 1:
+                return False
+    return True
+
 def is_complete (automate):
     for i in automate.states:
         if i not in automate.transitions:
