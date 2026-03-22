@@ -1,5 +1,5 @@
 # Bastien
-# Est déterminisé --> voir le fichier determinization
+# Est déterminisé
 # Est complet
 # Est Standard
 
