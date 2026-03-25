@@ -1,6 +1,8 @@
 from pathlib import Path
 from automaton import Automaton
 
+FILE_MIN_LINE_NUMBER = 4
+
 def _read_lines(path):
     """Lit le fichier et retourne les lignes sous forme de tableaux."""
     with open(path, "r", encoding="utf-8") as file:
@@ -52,10 +54,12 @@ def read_automaton_from_file(filename) -> Automaton:
     """
     Lit un automate à partir d’un fichier texte et retourne une instance d’Automaton.
     Le fichier doit respecter le format suivant :
-    - Ligne 1 : symboles de l’alphabet (séparés par des espaces)
-    - Ligne 2 : états initiaux (séparés par des espaces)
-    - Ligne 3 : états finaux (séparés par des espaces)
-    - Lignes suivantes : transitions au format <source> <symbole> <cible>
+        Ligne 1 : nom de l'automate
+        Ligne 2 : liste des symboles de l’alphabet séparés par des espaces.
+        Ligne 3 : indices des états initiaux séparés par des espaces.
+        Ligne 4 : indices des états finaux séparés par des espaces.
+        Lignes 5 et suivantes : transitions sous la forme
+            <état de départ> <symbole> <état d’arrivée>
     """
     path = Path(filename)
 
@@ -67,33 +71,35 @@ def read_automaton_from_file(filename) -> Automaton:
 
     lines = _read_lines(path)
 
-    if len(lines) < 3:
+    if len(lines) < FILE_MIN_LINE_NUMBER:
         raise ValueError(
             f"Format invalide : {filename}. "
-            f"Au moins 3 lignes sont attendues."
+            f"Au moins {FILE_MIN_LINE_NUMBER} lignes sont attendues."
         )
 
-    automaton = Automaton()
+    # Ligne 1 : nom
+    name = " ".join(lines[0])
+    automaton = Automaton(name)
 
-    # Ligne 1 : alphabet
-    alphabet = _read_symbols_line(lines[0], filename)
+    # Ligne 2 : alphabet
+    alphabet = _read_symbols_line(lines[1], filename)
 
-    # Ligne 2 : états initiaux
+    # Ligne 3 : états initiaux
     initial_states = _read_states_line(
-        lines[1], filename, 2, "État initial"
+        lines[2], filename, 3, "État initial"
     )
     for state in initial_states:
         automaton.add_initial_state(state)
 
-    # Ligne 3 : états finaux
+    # Ligne 4 : états finaux
     final_states = _read_states_line(
-        lines[2], filename, 3, "État final"
+        lines[3], filename, 4, "État final"
     )
     for state in final_states:
         automaton.add_final_state(state)
 
     # Transitions
-    for i in range(3, len(lines)):
+    for i in range(FILE_MIN_LINE_NUMBER, len(lines)):
         source, symbol, target = _read_transition(
             lines[i], filename, i + 1, alphabet
         )
