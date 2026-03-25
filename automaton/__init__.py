@@ -5,3 +5,5 @@ from .complement import complementarization
 from .determinization import determiniser
 from .completion import completion
 from .minimization import Minimization
+from client import *
+from tracer import *
