@@ -1,5 +1,7 @@
 from collections import OrderedDict
 
+AUTOMATON_DEFAULT_NAME = "Automate X"
+
 class OrderedSet:
     def __init__(self):
         self._items = []
@@ -39,7 +41,7 @@ class Automaton:
     and designated initial and final states.
     """
 
-    def __init__(self):
+    def __init__(self, name = AUTOMATON_DEFAULT_NAME):
         """
         Initializes an empty automaton with:
         - A set of states.
@@ -47,6 +49,7 @@ class Automaton:
         - An empty set of final states.
         - A dictionary for transitions.
         """
+        self.name = name
         self.states = OrderedSet()
         self.alphabet = OrderedSet()
         self.initial_states = OrderedSet()
