@@ -1,5 +1,5 @@
-from automaton import Automaton
-from file_manager import read_automaton_from_file
+from .automaton import Automaton
+from .file_manager import read_automaton_from_file
 
 CELL_SIZE = 10
 CELL_SIZE_STATE_TYPE = 5
