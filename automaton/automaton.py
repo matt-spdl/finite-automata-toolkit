@@ -145,11 +145,12 @@ class Automaton:
 
     def __repr__(self):
         string = [
-            f"States: {self.states}",
-            f"Alphabet: {self.alphabet}",
-            f"Initial state: {self.initial_states}",
-            f"Final states: {self.final_states}",
-            "Transitions:"
+            f"Nom : {self.name}",
+            f"États : {self.states}",
+            f"Alphabet : {self.alphabet}",
+            f"États initiaux : {self.initial_states}",
+            f"États finaux : {self.final_states}",
+            "Transitions :"
         ]
 
         for source in self.transitions:
