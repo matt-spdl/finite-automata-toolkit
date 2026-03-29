@@ -42,6 +42,11 @@ class OrderedSet:
     def __getitem__(self, index):
         return self._items[index]
 
+    def __eq__(self, other):
+        if not isinstance(other, OrderedSet):
+            return NotImplemented
+        return set(self._items) == set(other._items)
+
 class Automaton:
     """
     A class representing a finite automaton, which consists of states, an alphabet, transitions,
@@ -179,6 +184,22 @@ class Automaton:
 
         return "\n".join(string)
 
+    def __eq__(self, other):
+        if not isinstance(other, Automaton):
+            return NotImplemented
+        if self.states != other.states:
+            return False
+        if self.alphabet != other.alphabet:
+            return False
+        if self.initial_states != other.initial_states:
+            return False
+        if self.final_states != other.final_states:
+            return False
+        if self.transitions != other.transitions:
+            return False
+        return True
+
+
 if __name__ == "__main__":
     # Tests simples
 
@@ -245,5 +266,11 @@ if __name__ == "__main__":
     b.add_state("q_copy_only")
     assert "q_copy_only" in b.states
     assert "q_copy_only" not in a.states
+
+    # 9) __eq__
+    c = a.copy()
+    assert a == c
+    c.add_transition("q0", "c", "q1")
+    assert a != c
 
     print("Tous les tests simples ont réussi.")
