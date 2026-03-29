@@ -1,6 +1,4 @@
 #Bastien
-from automaton.automaton import Automaton
-
 def recognition(automaton,word,indice,state):
     if indice == len(word) and state in automaton.final_states:
         return True
