@@ -1,5 +1,5 @@
 Automate 33
-a b c
+a b c #
 0
 12
 0 # 1

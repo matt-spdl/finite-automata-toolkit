@@ -1,5 +1,5 @@
 Automate 31
-a b
+a b #
 0
 7
 0 # 1
