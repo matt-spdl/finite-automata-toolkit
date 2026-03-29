@@ -1,8 +1,7 @@
 # Louis
-
 from automaton import Automaton
-from determinization import determiniser
-from completion import completion
+from automaton import determiniser
+from automaton import completion
 
 def complementarization(automaton : Automaton):
 
@@ -35,7 +34,7 @@ def complementarization(automaton : Automaton):
 
 if __name__ == "__main__":
 
-    from file_manager import read_automaton_from_file
+    from automaton import read_automaton_from_file
 
     automaton = read_automaton_from_file("C:/Users/Louis/PycharmProjects/finite-automata-toolkit/automata_files/automate.exemple.txt")
     print(automaton)
