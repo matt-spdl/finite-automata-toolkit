@@ -87,7 +87,6 @@ def assemble(Group_NT, Group_T):
         result[values[0]] = values
         i += 1
 
-    print(result)
     return result
 
 def classification(self, reGroup):
@@ -139,7 +138,6 @@ def deleteUselessState(Group, reGroup):
                     seen.append(values)
         seen = []
 
-    print(result)
     return result
 
 
@@ -174,8 +172,6 @@ def breakClass(Minimize, Regroup):
                     N_reGroup[str(source)] = values2
                 j = 0
 
-
-    print(N_reGroup)
     return N_reGroup
 
 
@@ -223,7 +219,10 @@ def Minimization(self):
         Group = classification(self, reGroup)
         Minimize = deleteUselessState(Group, reGroup)
     result = reCreateAutomaton(self, Minimize)
+    if result == self:
+        print(" ")
+        print("L'automate est déja minimisé")
+    print(" ")
     print(result)
     return result
-
 
