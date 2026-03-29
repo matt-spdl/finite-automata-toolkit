@@ -53,20 +53,26 @@ def _format_row(state: str, automaton: Automaton, cell_size: int) -> str:
 
     return "".join(row)
 
+def get_min_cell_size(states) -> int:
+    """Calcule la taille de cellule nécessaire pour afficher correctement les états de l'automate."""
+    max_state_length = max(len(state) for state in states)
+    return max(CELL_SIZE, max_state_length)
+
 def get_automaton_table(automaton: Automaton) -> list[str]:
     """
     Renvoie un tableau de lignes formatées représentant l'automate.
     Chaque élément de la liste correspond à une ligne du tableau.
     """
     table = []
+    cell_size = get_min_cell_size(automaton.states)
 
     # Ajoute l'en-tête
-    header = _format_header(automaton.alphabet, CELL_SIZE)
+    header = _format_header(automaton.alphabet, cell_size)
     table.append(header)
 
     # Ajoute les lignes pour chaque état
     for state in automaton.states:
-        row = _format_row(state, automaton, CELL_SIZE)
+        row = _format_row(state, automaton, cell_size)
         table.append(row)
 
     return table
