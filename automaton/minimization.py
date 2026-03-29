@@ -125,23 +125,25 @@ def deleteUselessState(Group, reGroup):
             Returns:
                 Un dictionnaire contenant un dictionnaire en valeur dans un set
     """
-    result = {}
+    result1 = {}
+    result2 = {}
     seen = []
 
     for source_2 in reGroup:
         for source, values in Group.items():
             if source in reGroup[source_2]:
                 if values not in seen:
-                    if source not in result:
-                        result[source] = []
-                    result[source].append(values)
+                    if source not in result1:
+                        result1[source]=[]
+                    result1[source].append(values)
+                    result2[source]= values
                     seen.append(values)
         seen = []
 
-    return result
+    return result1, result2
 
 
-def breakClass(Minimize, Regroup):
+def breakClass(Minimize, Group, reGroup):
     """
             Casse les classes qui ont des états qui ne peuvent pas être regroupés
 
@@ -152,25 +154,15 @@ def breakClass(Minimize, Regroup):
                 Un dictionnaire contenant un dictionnaire en valeur dans un set
     """
     N_reGroup = {}
-    j=0
-    prev = []
 
     for source, values in Minimize.items():
-        prev.append(source)
+        for source2, values2 in Group.items():
+            for source3, values3 in reGroup.items():
+                if values2 == values and source2 in values3 and source in values3:
+                    if str(source) not in N_reGroup:
+                        N_reGroup[str(source)] = []
+                    N_reGroup[str(source)].append(source2)
 
-    for source,values in Minimize.items():
-        for source2,values2 in Regroup.items():
-            if source in values2:
-                for i in range(len(prev)):
-                    if str(i) in values2:
-                        j += 1
-
-                if j > 1:
-                    N_reGroup[str(source)] = []
-                    N_reGroup[str(source)].append(source)
-                else :
-                    N_reGroup[str(source)] = values2
-                j = 0
 
     return N_reGroup
 
@@ -213,15 +205,14 @@ def Minimization(self):
     Group_T = regroup(self, Group_T)
     reGroup = assemble(Group_NT, Group_T)
     Group = classification(self, reGroup)
-    Minimize = deleteUselessState(Group, reGroup)
+    Minimize, Mini = deleteUselessState(Group, reGroup)
     while len(Minimize) != len(reGroup):
-        reGroup = breakClass(Minimize, reGroup)
+        reGroup = breakClass(Mini, Group, reGroup)
         Group = classification(self, reGroup)
-        Minimize = deleteUselessState(Group, reGroup)
+        Minimize, Mini = deleteUselessState(Group, reGroup)
     result = reCreateAutomaton(self, Minimize)
     if result == self:
         print(" ")
         print("L'automate est déja minimisé")
         print(" ")
-
     return result
