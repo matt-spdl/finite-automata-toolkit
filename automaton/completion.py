@@ -19,7 +19,7 @@ def completion (old_automaton):
                 old_automaton : the automaton we want to complete
     """
     if is_complete(old_automaton):
-        raise ValueError ("L'automate est déjà copmlet")
+        return old_automaton
     "copie de l'automate"
     new_automaton = old_automaton.copy()
 
