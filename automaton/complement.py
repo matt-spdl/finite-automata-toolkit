@@ -23,7 +23,7 @@ def complementarization(automaton : Automaton):
             raise ValueError(f"L'automate {automaton.name} n'est pas complet")
         else :
             # On crée un nouvel automate pour le complémentaire
-            comp_automaton = Automaton()
+            comp_automaton = Automaton(automaton.name)
 
             # On copie les états et les transitions dans ce nouvel automate
             for state in automaton.states :
