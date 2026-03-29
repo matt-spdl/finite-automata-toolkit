@@ -123,24 +123,24 @@ def deleteUselessState(Group, reGroup):
                  un dictionnaire avec des listes en valeurs, Un dictionnaire contenant un dictionnaire en valeur dans un set
 
             Returns:
-                Un dictionnaire contenant un dictionnaire en valeur dans un set
+                Deux dictionnaire contenant un dictionnaire en valeur dictionnaire ou chaine de caractère
     """
-    result1 = {}
-    result2 = {}
+    result_dic = {}
+    result_str = {}
     seen = []
 
     for source_2 in reGroup:
         for source, values in Group.items():
             if source in reGroup[source_2]:
                 if values not in seen:
-                    if source not in result1:
-                        result1[source]=[]
-                    result1[source].append(values)
-                    result2[source]= values
+                    if source not in result_dic:
+                        result_dic[source]=[]
+                    result_dic[source].append(values)
+                    result_str[source]= values
                     seen.append(values)
         seen = []
 
-    return result1, result2
+    return result_dic, result_str
 
 
 def breakClass(Minimize, Group, reGroup):
@@ -205,12 +205,12 @@ def Minimization(self):
     Group_T = regroup(self, Group_T)
     reGroup = assemble(Group_NT, Group_T)
     Group = classification(self, reGroup)
-    Minimize, Mini = deleteUselessState(Group, reGroup)
-    while len(Minimize) != len(reGroup):
-        reGroup = breakClass(Mini, Group, reGroup)
+    Minimize_dic, Minimize_str = deleteUselessState(Group, reGroup)
+    while len(Minimize_dic) != len(reGroup):
+        reGroup = breakClass(Minimize_str, Group, reGroup)
         Group = classification(self, reGroup)
-        Minimize, Mini = deleteUselessState(Group, reGroup)
-    result = reCreateAutomaton(self, Minimize)
+        Minimize_dic, Minimize_str = deleteUselessState(Group, reGroup)
+    result = reCreateAutomaton(self, Minimize_dic)
     if result == self:
         print(" ")
         print("L'automate est déja minimisé")
