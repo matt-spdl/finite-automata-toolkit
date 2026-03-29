@@ -18,7 +18,7 @@ def complementarization(automaton : Automaton):
     # On utilise un automate Déterministe et Complet pour cette fonction
 
     # On crée un nouvel automate pour le complémentaire
-    comp_automaton = Automaton()
+    comp_automaton = Automaton(automaton.name)
 
     # On copie les états et les transitions dans ce nouvel automate
     for state in automaton.states :
@@ -40,17 +40,3 @@ def complementarization(automaton : Automaton):
 
     # On obtient l'automate complémentaire de celui donné en entrée
     return comp_automaton
-
-
-if __name__ == "__main__":
-
-    from .file_manager import read_automaton_from_file
-
-    automaton = read_automaton_from_file("C:/Users/Louis/PycharmProjects/finite-automata-toolkit/automata_files/automate.exemple.txt")
-    print(automaton)
-    d_automaton = determinize(automaton)
-    print(d_automaton)
-    dc_automaton = completion(d_automaton)
-    print(dc_automaton)
-    cmp_automaton = complementarization(dc_automaton)
-    print(cmp_automaton)

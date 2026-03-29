@@ -95,6 +95,7 @@ def menu_standardization(automaton):
         print("Automate standardisé.\n")
         _display_before_after(automaton, std, "standardisation")
         return std
+
     except Exception as e:
         print(f"Erreur : {e}\n")
         return automaton
@@ -130,17 +131,11 @@ def menu_minimization(automaton):
 
 
 def menu_complementary(automaton):
-    """Calcule l'automate complémentaire (déterminisation + complétion si besoin)."""
+    """Calcule l'automate complémentaire."""
     display_header(f"Complémentaire ({automaton.name})")
     try:
-        working = automaton
-        if not is_determinist(working):
-            print("Automate non déterministe : déterminisation en cours...")
-            working = determinize(working)
-        if not is_complete(working):
-            print("Automate non complet : complétion en cours...")
-            working = completion(working)
-        comp = complementarization(working)
+        # L'automate doit être déterministe et complet pour que cette fonction fonctionne, sinon une exception est levée.
+        comp = complementarization(automaton)
         print("Automate complémentaire généré.\n")
         _display_before_after(automaton, comp, "complémentaire")
         return comp

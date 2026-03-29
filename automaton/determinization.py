@@ -102,7 +102,7 @@ def determinize(and_origine):
         raise ValueError("L'automate est déjà déterministe")
 
 
-    ad_final = Automaton()
+    ad_final = Automaton(and_origine.name)
 
     # L'alphabet final est celui d'origine, moins le symbole 'epsilon' s'il existe
     ad_final.alphabet = {sym for sym in and_origine.alphabet if sym != '#'}

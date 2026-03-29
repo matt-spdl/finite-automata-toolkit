@@ -132,8 +132,3 @@ def display_automaton_table(automaton: Automaton) -> None:
     table = get_automaton_table(automaton)
     for line in table:
         print(line)
-
-if __name__ == "__main__":
-    automaton = read_automaton_from_file("../automata_files/automate.exemple.txt")
-    display_automaton_table(automaton)
-    print(get_automaton_table(automaton))

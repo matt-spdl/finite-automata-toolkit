@@ -108,8 +108,3 @@ def read_automaton_from_file(filename) -> Automaton:
         automaton.add_transition(source, symbol, target)
 
     return automaton
-
-if __name__ == "__main__":
-    # Exemple
-    a = read_automaton_from_file("C:/Users/matte/dev/finite-automata-toolkit/automata_files/a44.txt")
-    print(a)
