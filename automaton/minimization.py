@@ -222,7 +222,6 @@ def Minimization(self):
     if result == self:
         print(" ")
         print("L'automate est déja minimisé")
-    print(" ")
-    print(result)
-    return result
+        print(" ")
 
+    return result
