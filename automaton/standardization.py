@@ -1,6 +1,5 @@
 # Louis
-
-from .automaton_class import Automaton
+from automaton.automaton_class import Automaton
 
 def is_standard (automate):
     """vérifie si l'automate donné en paramètre possède seulement 1 état initial et aucune transition dans cet état"""

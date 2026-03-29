@@ -1,7 +1,7 @@
 # Louis
-from .automaton_class import Automaton
-from .determinization import determinize
-from .completion import completion
+from automaton.automaton_class import Automaton
+from automaton.determinization import determinize
+from automaton.completion import completion
 
 def complementarization(automaton : Automaton):
     """

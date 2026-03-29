@@ -1,5 +1,5 @@
-from .automaton_class import Automaton
-from .file_manager import read_automaton_from_file
+from automaton.automaton_class import Automaton
+from automaton.file_manager import read_automaton_from_file
 
 CELL_SIZE = 10
 CELL_SIZE_STATE_TYPE = 5
@@ -127,6 +127,7 @@ def display_automaton_table(automaton: Automaton) -> None:
     Args:
         automaton : l'automate à afficher.
     """
+    print(f"Nom : {automaton.name}")
     # Affiche d'abord l'en-tête puis toutes les lignes de l'automate
     table = get_automaton_table(automaton)
     for line in table:

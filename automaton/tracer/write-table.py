@@ -6,7 +6,6 @@ from automaton.completion import *
 from automaton.standardization import *
 import os
 
-
 def write_and_print_automatons(file):
     '''
     Affiche et enregistre les informations d'un automate dans un fichier texte
