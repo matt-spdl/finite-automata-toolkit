@@ -1,8 +1,9 @@
 from automaton import *
-from menu_class import *
-from utils import *
+from .menu_class import *
+from .utils import *
 
 def menu_load_from_path():
+    """Charge un automate depuis un chemin de fichier saisi par l'utilisateur."""
     display_header("Charger un automate par chemin")
     path = ask_path("Chemin vers le fichier de l'automate (Q pour annuler): ", allow_quit=True)
     automaton = read_automaton_from_file(path)
@@ -11,6 +12,7 @@ def menu_load_from_path():
 
 
 def menu_load_from_number():
+    """Charge un automate depuis son numéro (1 à 44) dans le dossier automata_files."""
     display_header("Charger un automate par numéro")
     num = ask_int("Numéro de l'automate (Q pour annuler): ", 1, 44, allow_quit=True)
     path = get_path_to_automaton(num)
@@ -20,6 +22,7 @@ def menu_load_from_number():
 
 
 def menu_main():
+    """Point d'entrée du menu principal : charge un automate puis ouvre le menu de l'automate."""
     menu = Menu("Menu principal", {
         "1": MenuOption("Charger automate par chemin", menu_load_from_path),
         "2": MenuOption("Charger automate par numéro", menu_load_from_number),
@@ -33,13 +36,20 @@ def menu_main():
 
 
 def menu_word_recognition(automaton):
+    """
+    Menu interactif de reconnaissance de mot.
+    Demande un mot à l'utilisateur et indique s'il est accepté ou rejeté par l'automate.
+
+    Args:
+        automaton : l'automate à utiliser pour la reconnaissance.
+    """
     display_header("Reconnaissance de mot")
     while True:
         word = input("Mot à tester (Q pour annuler): ").strip()
         if word.lower() == "q":
             print("Test annulé.\n")
             return
-        accepted = automaton.word_recognition(automaton, word)
+        accepted = word_recognition(automaton, word)
         if accepted:
             print(f"Le mot '{word}' est accepté par l'automate.\n")
         else:
@@ -47,6 +57,12 @@ def menu_word_recognition(automaton):
 
 
 def menu_automaton(automaton):
+    """
+    Menu de gestion d'un automate chargé : affichage, standardisation, AFDC, minimisation, etc.
+
+    Args:
+        automaton : l'automate à manipuler.
+    """
     menu = Menu(f"Menu automate ({automaton.name})", {
         "1": MenuOption("Affichage", lambda: None),
         "2": MenuOption("Standardisation", lambda: None),

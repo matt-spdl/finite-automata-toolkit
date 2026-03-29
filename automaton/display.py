@@ -1,14 +1,24 @@
-from automaton import Automaton
-from automaton import read_automaton_from_file
+from .automaton_class import Automaton
+from .file_manager import read_automaton_from_file
 
 CELL_SIZE = 10
 CELL_SIZE_STATE_TYPE = 5
 EMPTY_TRANSITION = "--"
 
 def _format_cell(value: str, cell_size: int) -> str:
+    """Formate une valeur dans une cellule de largeur fixe."""
     return str(value).ljust(cell_size)
 
 def _format_transition(next_states) -> str:
+    """
+    Formate les états cibles d'une transition pour l'affichage.
+
+    Args:
+        next_states : les états cibles de la transition.
+
+    Returns:
+        Une chaîne avec les états séparés par des virgules, ou "--" si aucun état.
+    """
     # Si pas d'état suivant, on affiche le symbole par défaut
     if not next_states:
         return EMPTY_TRANSITION
@@ -17,6 +27,16 @@ def _format_transition(next_states) -> str:
     return ",".join(str(state) for state in next_states)
 
 def _get_state_type(state: str, automaton: Automaton) -> str:
+    """
+    Retourne le type d'un état : "E" (initial), "S" (final), "E/S" (les deux) ou "" (aucun).
+
+    Args:
+        state : le nom de l'état.
+        automaton : l'automate contenant l'état.
+
+    Returns:
+        Une chaîne indiquant le type de l'état.
+    """
     types = []
     if automaton.is_initial_state(state):
         types.append("E")
@@ -26,6 +46,16 @@ def _get_state_type(state: str, automaton: Automaton) -> str:
     return "/".join(types)
 
 def _format_header(alphabet, cell_size: int) -> str:
+    """
+    Crée la ligne d'en-tête du tableau de l'automate.
+
+    Args:
+        alphabet : les symboles de l'alphabet.
+        cell_size : la largeur de chaque colonne.
+
+    Returns:
+        Une chaîne formatée représentant l'en-tête du tableau.
+    """
     # Crée la première ligne du tableau :
     # - première colonne : type d'état
     # - deuxième colonne : nom de l'état
@@ -41,6 +71,17 @@ def _format_header(alphabet, cell_size: int) -> str:
     return "".join(row)
 
 def _format_row(state: str, automaton: Automaton, cell_size: int) -> str:
+    """
+    Crée la ligne du tableau correspondant à un état donné.
+
+    Args:
+        state : le nom de l'état.
+        automaton : l'automate contenant l'état.
+        cell_size : la largeur de chaque colonne.
+
+    Returns:
+        Une chaîne formatée représentant la ligne de l'état dans le tableau.
+    """
     # Crée une ligne du tableau pour un état {state} donné
     row = []
     row.append(_format_cell(_get_state_type(state, automaton), CELL_SIZE_STATE_TYPE))
@@ -80,6 +121,12 @@ def get_automaton_table(automaton: Automaton) -> list[str]:
     return table
 
 def display_automaton_table(automaton: Automaton) -> None:
+    """
+    Affiche le tableau de l'automate dans la console.
+
+    Args:
+        automaton : l'automate à afficher.
+    """
     # Affiche d'abord l'en-tête puis toutes les lignes de l'automate
     table = get_automaton_table(automaton)
     for line in table:
