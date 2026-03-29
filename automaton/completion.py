@@ -2,27 +2,26 @@
 from automaton import Automaton
 
 def completion (old_automaton):
+    """
+            make a complete version of the automaton given.
+
+            Args:
+                old_automaton : the automaton we want to complete
+    """
 
     "copie de l'automate"
-    new_automaton = Automaton()
-    "je me rend compte que la première boucle est pas forcèment utile... Mais on sait jamais"
-    for i in old_automaton.states :
-        new_automaton.add_state(i)
-    for i in old_automaton.alphabet :
-        new_automaton.alphabet.add(i)
-    for i in old_automaton.initial_states:
-        new_automaton.add_initial_state(i)
-    for i in old_automaton.final_states:
-        new_automaton.add_final_state(i)
-    for i in old_automaton.transitions:
-        for j in old_automaton.transitions[i]:
-            for k in old_automaton.transitions[i][j]:
-                new_automaton.add_transition(i,j,k)
+    new_automaton = old_automaton.copy()
 
     "ajout de la poubelle"
     new_automaton.add_state("P")
+
+    "parcours des états"
     for i in new_automaton.states:
+
+        "parcours de l'alphabet, et donc des sorties de chaque état"
         for j in new_automaton.alphabet:
+
+            "ajout des transitions manquantes"
             if i not in new_automaton.transitions:
                 new_automaton.add_transition(i,j,"P")
             elif j not in new_automaton.transitions[i]:
