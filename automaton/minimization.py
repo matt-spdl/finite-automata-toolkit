@@ -139,6 +139,7 @@ def deleteUselessState(Group, reGroup):
         seen = []
 
     return result
+
 '''
 def newRegroup(Minimize, Regroup):
     N_reGroup = {}
