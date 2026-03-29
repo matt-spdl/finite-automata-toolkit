@@ -3,7 +3,7 @@
 # Est complet
 # Est Standard
 
-def est_deterministe(automate):
+def is_deterministic(automate):
     if len(automate.initial_states) != 1:
         return False
     for etat in automate.transitions:
