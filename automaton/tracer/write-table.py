@@ -6,7 +6,7 @@ from automaton.completion import *
 
 def write_automatons(file):
     new_automaton=read_automaton_from_file(file)
-    print("automate initiale:")
+    print("automate initial:")
     print("")
     display_automaton_table(new_automaton)
     if not is_determinist(new_automaton):
@@ -23,8 +23,7 @@ def write_automatons(file):
         minimized_automaton = Minimization(determinize_automaton)
     else:
         minimized_automaton = Minimization(completion(determinize_automaton))
-    print("")
-    print("automate minimisé:")
+    print("automate minimisé et complet:")
     print("")
     display_automaton_table(minimized_automaton)
 
