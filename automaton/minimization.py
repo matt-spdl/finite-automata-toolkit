@@ -34,10 +34,9 @@ def separationTerminal(self):
                     Group_T[source][symbol] = set()
                 for target in targets:
                     if target not in self.final_states:
-                        Group_T[source][symbol] = "NT"
+                        Group_T[source][symbol].add("NT")
                     else:
-                        Group_T[source][symbol] = "T"
-
+                        Group_T[source][symbol].add("T")
     return Group_NT, Group_T
 
 
@@ -55,15 +54,11 @@ def regroup(self, Group):
     compar = {}
     i = 1
     for source,values in Group.items():
-        if len(Group) == 1:
-            result[1]=source
-            print(result)
-            return result
-        else:
-            verif = str(values)
-            if verif not in compar:
-                compar[verif] = []
-            compar[verif].append(source)
+
+        verif = str(values)
+        if verif not in compar:
+            compar[verif] = []
+        compar[verif].append(source)
 
     for verif in compar.values():
         result[i]=verif
@@ -135,13 +130,22 @@ def deleteUselessState(Group, reGroup):
         for source, values in Group.items():
             if source in reGroup[source_2]:
                 if values not in seen:
-                    if source_2 not in result:
-                        result[source_2] = []
-                    result[source_2].append(values)
+                    if source not in result:
+                        result[source] = []
+                    result[source].append(values)
                     seen.append(values)
         seen = []
 
     return result
+
+def newRegroup(Minimize):
+    reGroup = {}
+    for source, values in Minimize.items():
+        if source not in reGroup:
+            reGroup[str(source)] = []
+        reGroup[str(source)].append(source)
+    return reGroup
+
 
 def reCreateAutomaton(self, Minimize):
     """
@@ -182,8 +186,12 @@ def Minimization(self):
     reGroup = assemble(Group_NT, Group_T)
     Group = classification(self, reGroup)
     Minimize = deleteUselessState(Group, reGroup)
+    while len(Minimize) != len(reGroup):
+        reGroup = newRegroup(Minimize)
+        Group = classification(self, reGroup)
+        Minimize = deleteUselessState(Group, reGroup)
     result = reCreateAutomaton(self, Minimize)
     print(result)
-    if result == self:
-        print("Automaton was already minimized")
     return result
+
+
