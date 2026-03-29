@@ -1,66 +1,111 @@
-# Thomas
 from automaton import Automaton
 
 def is_determinist(automate):
+    # Il doit avoir une seule entrée
     if len(automate.initial_states) != 1:
-        return False  #On regarde s'il y a plusieurs états d'entrées
+        return False
+
+        # Aucune transition multiple pour un même caractère et pas de transitions epsilon
     for etat in automate.transitions:
         for symbole in automate.transitions[etat]:
-            if len(automate.transitions[etat][symbole]) > 1:  #On regarde si à partir d'un état, plusieurs flèches avec la même lettre sortent
+            if symbole == 'epsilon':
+                return False  # La simple présence d'un epsilon rend l'automate non déterministe
+            if len(automate.transitions[etat][symbole]) > 1:
                 return False
     return True
 
 
 def formate_name_state(liste_etats):
-    return ".".join(sorted(str(e) for e in set(liste_etats)))  #On join le nom  des états pour en former qu'un seul
+    # On trie et on joint les noms d'états pour former l'état composé.
+    return ".".join(sorted(str(e) for e in set(liste_etats)))
+
+
+def get_epsilon_closure(automate, etats_liste):
+    """
+    Calcule l'ensemble des états atteignables via des transitions epsilon (ou '#' / 'epsilon')
+    Si l'automate n'a pas d'epsilon, cela retourne simplement la liste de départ.
+    """
+    fermeture = set(etats_liste)
+    pile = list(etats_liste)
+
+    while pile:
+        etat = pile.pop()
+        # Vérifie si l'état possède des transitions 'epsilon'
+        if etat in automate.transitions and 'epsilon' in automate.transitions[etat]:
+            for cible in automate.transitions[etat]['epsilon']:
+                if cible not in fermeture:
+                    fermeture.add(cible)
+                    pile.append(cible)
+
+    return sorted(list(fermeture))
+
+
+def get_symbol_transitions(automate, etats_liste, symbole):
+    """
+    Récupère toutes les cibles atteignables depuis un groupe d'états pour un symbole donné,
+    PUIS applique la fermeture epsilon sur ces cibles.
+    """
+    cibles_directes = set()
+    for etat in etats_liste:
+        # On récupère les états cibles pour le symbole lu
+        if etat in automate.transitions and symbole in automate.transitions[etat]:
+            cibles_directes.update(automate.transitions[etat][symbole])
+
+    # On retourne la fermeture epsilon de toutes ces cibles
+    return get_epsilon_closure(automate, list(cibles_directes))
 
 
 def determinize(and_origine):
-    if is_determinist(and_origine):  #Avant de déterminiser, on check si l'automate n'est pas déjà déterministe
-        raise ValueError ("L'automate est déjà déterministe")
+    """
+    Fonction universelle de déterminisation pure (sans complétion)
+    """
+    # On ne déterminise pas un automate déjà déterministe
+    if is_determinist(and_origine):
+        raise ValueError("L'automate est déjà déterministe")
+
 
     ad_final = Automaton()
-    ad_final.alphabet = set(and_origine.alphabet) #Initialisation du nouvel automate déterministe
 
-    etat_initial_liste = sorted(list(and_origine.initial_states))  #L'unique état initial de l'AD est l'ensemble des états initiaux de l'AND d'origine
+    # L'alphabet final est celui d'origine, moins le symbole 'epsilon' s'il existe
+    ad_final.alphabet = {sym for sym in and_origine.alphabet if sym != 'epsilon'}
+
+    # Calcul de l'état initial
+    etat_initial_liste = get_epsilon_closure(and_origine, and_origine.initial_states)
     nom_initial = formate_name_state(etat_initial_liste)
     ad_final.add_initial_state(nom_initial)
 
-    file_attente = [etat_initial_liste]  #File pour traiter les nouveaux états composés et set pour éviter les boucles infinies
+    file_attente = [etat_initial_liste]
     explores_noms = set()
 
+    # Boucle de construction des nouveaux états
     while file_attente:
-        courant_liste = file_attente.pop(0)   #On récupère le prochain groupe d'états à traiter
+        courant_liste = file_attente.pop(0)
         nom_courant = formate_name_state(courant_liste)
 
-        if nom_courant in explores_noms:  #Si cet état composé a déjà été traité, on passe au suivant
+        if nom_courant in explores_noms:
             continue
 
         explores_noms.add(nom_courant)
 
-        est_final = False   #Un état composé est terminal s'il contient au moins un état terminal de l'AND
-        for e in courant_liste:
-            if e in and_origine.final_states:
-                est_final = True
-                break
-
+        # Définition de l'état terminal
+        est_final = any(e in and_origine.final_states for e in courant_liste)
         if est_final:
             ad_final.add_final_state(nom_courant)
         else:
             ad_final.add_state(nom_courant)
 
-        for symbole in sorted(and_origine.alphabet):  #Pour chaque symbole, on cherche où vont les états du groupe
-            prochain_ensemble = set()
-            for etat in courant_liste:
-                cibles = and_origine.get_target_states(etat, symbole)  #On cumule toutes les cibles possibles pour ce symbole
-                prochain_ensemble.update(cibles)
+        # Calcul des transitions pour chaque symbole du nouvel alphabet
+        for symbole in sorted(ad_final.alphabet):
+            # Utilisation de notre sous-fonction qui gère directement cibles + epsilons
+            prochain_ensemble = get_symbol_transitions(and_origine, courant_liste, symbole)
 
-            if prochain_ensemble:  #Si des transitions existent, on crée le nouvel état composé
-                prochain_liste = sorted(list(prochain_ensemble))
-                nom_prochain = formate_name_state(prochain_liste)
-                ad_final.add_transition(nom_courant, symbole, nom_prochain)  #On ajoute la transition unique dans l'AD
+            # Si prochain_ensemble est vide, le bloc if n'est pas exécuté.
+            # Aucune transition n'est créée vers le vide, ce qui évite la complétion forcée.
+            if prochain_ensemble:
+                nom_prochain = formate_name_state(prochain_ensemble)
+                ad_final.add_transition(nom_courant, symbole, nom_prochain)
 
-                if nom_prochain not in explores_noms:  #Si ce nouvel état n'a jamais été vu, on l'ajoute à la file d'attente
-                    file_attente.append(prochain_liste)
+                if nom_prochain not in explores_noms:
+                    file_attente.append(prochain_ensemble)
 
     return ad_final
