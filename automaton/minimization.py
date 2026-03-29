@@ -4,16 +4,16 @@ from automaton import Automaton
 
 def separationTerminal(self):
     """
-            Splits the automaton states into two dictionaries:
-            terminal states and non-terminal states,
-            then replaces their targets with "T" or "NT" depending on whether the target is terminal or not.
+            Sépare les états dans deux dictionnaires
+            Un dictionnaire qui regroupe tous les états terminaux avec leur cible sur des états terminaux ou non
+            Un dictionnaire qui regroupe tous les états non-terminaux avec leur cible sur des états terminaux ou non
 
             Args:
-                an automaton
+                un automate
 
             Returns:
-                two dictionaries of dictionaries
-            """
+                Deux dictionnaires de dictionnaire
+    """
     Group_NT = {}
     Group_T = {}
     for source, transitions in self.transitions.items():
@@ -43,14 +43,14 @@ def separationTerminal(self):
 
 def regroup(self, Group):
     """
-            Groups states that have similar targets into new groups.
+            Regroupe les états terminaux (ou non) qui ont des cibles terminales ou non identiques
 
             Args:
-                an automaton, a dictionary of dictionaries
+                Un automate et un dictionnaire de dictionnaire
 
             Returns:
-                a dictionary containing lists
-            """
+                Un dictionnaire qui contient des listes en valeurs
+    """
     result = {}
     compar = {}
     i = 1
@@ -68,14 +68,14 @@ def regroup(self, Group):
 
 def assemble(Group_NT, Group_T):
     """
-            Merges two dictionaries into a single one.
+            Assemble les deux dicctionnaires de listes des états terminaux et des états non-terminaux.
 
             Args:
-                two dictionaries containing lists
+                deux dictionnaires avec des listes en valeurs
 
             Returns:
-                a dictionary containing lists
-            """
+                un dictionnaire avec des listes en valeurs
+    """
     result ={}
     i = 1
 
@@ -92,15 +92,15 @@ def assemble(Group_NT, Group_T):
 
 def classification(self, reGroup):
     """
-            Creates a dictionary of dictionaries by replacing states
-            with the new groups formed by the previous functions.
+            La fonction crée des classes (groupes) avec les groupes précédents formées
+            et regroupe  dans un dictionnaire, tous les états de l'automates avec la classe de leur cible
 
             Args:
-                an automaton, a dictionary of lists
+                Un dictionnaire, un dictionnaire avec des listes en valeurs
 
             Returns:
-                a dictionary containing dictionaries
-            """
+                Un dictionnaire contenant un dictionnaire en valeur dans un set
+    """
     result = {}
     for source, transitions in self.transitions.items():
         for symbol, targets in transitions.items():
@@ -116,15 +116,16 @@ def classification(self, reGroup):
 
 def deleteUselessState(Group, reGroup):
     """
-            Removes duplicate states that belong to the same groups
-            in the new classification.
+            Reprend les classes formés précdemment et retire les états en doublon à condition que :
+            -Les états viennent de la même classe
+            -Les étas ont les mêmes classes en cible
 
             Args:
-                 a dictionary of lists, a dictionary of dictionaries
+                 un dictionnaire avec des listes en valeurs, Un dictionnaire contenant un dictionnaire en valeur dans un set
 
             Returns:
-                a dictionary containing lists of dictionaries
-            """
+                Un dictionnaire contenant un dictionnaire en valeur dans un set
+    """
     result = {}
     seen = []
 
@@ -142,7 +143,16 @@ def deleteUselessState(Group, reGroup):
     return result
 
 
-def newRegroup(Minimize, Regroup):
+def breakClass(Minimize, Regroup):
+    """
+            Casse les classes qui ont des états qui ne peuvent pas être regroupés
+
+            Args:
+                 Un dictionnaire contenant un dictionnaire en valeur dans un set, un dictionnaire avec des listes en valeurs
+
+            Returns:
+                Un dictionnaire contenant un dictionnaire en valeur dans un set
+    """
     N_reGroup = {}
     j=0
     prev = []
@@ -171,14 +181,14 @@ def newRegroup(Minimize, Regroup):
 
 def reCreateAutomaton(self, Minimize):
     """
-            Transforms the dictionary into a new automaton.
+            Transforme notre résultat qui a la forme d'un dictionnaire en automate de notre classe
 
             Args:
-                 an automaton, a dictionary of lists of dictionaries
+                 Un automate, Un dictionnaire contenant un dictionnaire en valeur dans un set
 
             Returns:
-                the new automaton built from the dictionary
-            """
+                Notre automate final minimizé
+    """
     New_automaton = Automaton()
     for source, values in Minimize.items():
         for mini in values:
@@ -194,14 +204,14 @@ def reCreateAutomaton(self, Minimize):
 
 def Minimization(self):
     """
-            Minimizes an automaton by applying all the steps.
+           Fonction de minimisation avec toues les fonctions étape par étape
 
             Args:
-                 an automaton
+                 Un automate
 
             Returns:
-                the minimized automaton
-            """
+                L'automate minimisé
+    """
     Group_NT, Group_T = separationTerminal(self)
     Group_NT = regroup(self, Group_NT)
     Group_T = regroup(self, Group_T)
@@ -209,7 +219,7 @@ def Minimization(self):
     Group = classification(self, reGroup)
     Minimize = deleteUselessState(Group, reGroup)
     while len(Minimize) != len(reGroup):
-        reGroup = newRegroup(Minimize, reGroup)
+        reGroup = breakClass(Minimize, reGroup)
         Group = classification(self, reGroup)
         Minimize = deleteUselessState(Group, reGroup)
     result = reCreateAutomaton(self, Minimize)
