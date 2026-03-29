@@ -37,3 +37,12 @@ def ask_int(prompt, min_value=None, max_value=None, allow_quit=False):
 def get_path_to_automaton(choice):
     project_root = Path(__file__).resolve().parents[2]
     return (project_root / "automata_files" / f"a{choice}.txt").resolve()
+
+def display_header(title):
+    padding = 5
+    padded_message = " " * padding + title + " " * padding
+    length = len(padded_message)
+
+    print("╔" + "═" * length + "╗")
+    print("║" + padded_message + "║")
+    print("╚" + "═" * length + "╝")
