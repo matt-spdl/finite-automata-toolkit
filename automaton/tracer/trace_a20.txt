@@ -36,6 +36,8 @@ E    0.1.6.7.8  2          4          5          3
      4          --         --         5          --
 S    5          --         --         --         --
 
+L'automate est déja minimisé
+
 automate minimisé et complet:
 
      État       a          b          c          d

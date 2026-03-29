@@ -26,6 +26,8 @@ S    10.3.5.7.8  10.6.9      --
 S    10.6.9      --          5.7.8
      5.7.8       10.6.9      --
 
+L'automate est déja minimisé
+
 automate minimisé et complet:
 
      État        a           b

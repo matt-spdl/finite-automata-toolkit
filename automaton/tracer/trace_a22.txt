@@ -27,6 +27,8 @@ automate déterministe:
 E/S  1         0.2.3     --        --        --
      3         --        0         --        --
 
+L'automate est déja minimisé
+
 automate minimisé et complet:
 
      État      a         b         c         d

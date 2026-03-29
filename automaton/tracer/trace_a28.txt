@@ -23,6 +23,8 @@ E    1         2.4
 S    3.4       2.5
 S    3.5       0.2
 
+L'automate est déja minimisé
+
 automate minimisé et complet:
 
      État      a

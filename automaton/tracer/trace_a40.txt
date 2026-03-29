@@ -24,6 +24,8 @@ S    0.2       0         1.2
 S    1.2       0.2       2
 S    2         0         --
 
+L'automate est déja minimisé
+
 automate minimisé et complet:
 
      État      a         b
