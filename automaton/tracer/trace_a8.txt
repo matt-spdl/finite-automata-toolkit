@@ -1,0 +1,19 @@
+informations de l'automate 8:
+
+automate initial:
+
+     État      a
+S    0         0
+E    1         0
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a
+S    0         0
+E    1         0

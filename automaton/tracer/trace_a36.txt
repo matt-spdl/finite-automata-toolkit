@@ -1,0 +1,33 @@
+informations de l'automate 36:
+
+automate initial:
+
+     État      a         b
+E    0         1         1,2
+S    1         --        0,2
+E/S  2         0,1       --
+
+automate standardisé:
+
+     État      a         b
+     0         1         1,2
+S    1         --        0,2
+S    2         0,1       --
+E/S  Es        0,1       1,2
+
+automate déterministe:
+
+     État      a         b
+S    0.1       1         0.1.2
+S    0.1.2     0.1       0.1.2
+E/S  0.2       0.1       1.2
+S    1         --        0.2
+S    1.2       0.1       0.2
+
+automate minimisé et complet:
+
+     État      a         b
+S    0.1       1         0.2
+E/S  0.2       0.1       0.2
+S    1         P         0.2
+     P         P         P

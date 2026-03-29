@@ -1,0 +1,43 @@
+informations de l'automate 25:
+
+automate initial:
+
+     État      a         b         c         d
+S    0         --        --        --        0
+E    1         1,2       3         4         0
+     2         --        2,3       4         0
+     3         --        --        3,4       0
+     4         --        --        --        0,4
+
+automate standardisé:
+
+     État      a         b         c         d
+S    0         --        --        --        0
+     1         1,2       3         4         0
+     2         --        2,3       4         0
+     3         --        --        3,4       0
+     4         --        --        --        0,4
+E    Es        1,2       3         4         0
+
+automate déterministe:
+
+     État      a         c         d         b
+S    0         --        --        0         --
+S    0.4       --        --        0.4       --
+E    1         1.2       4         0         3
+     1.2       1.2       4         0         2.3
+     2.3       --        3.4       0         2.3
+     3         --        3.4       0         --
+     3.4       --        3.4       0.4       --
+     4         --        --        0.4       --
+
+automate minimisé et complet:
+
+     État      a         b         c         d
+S    0         P         P         P         0
+E    1         1.2       3         4         0
+     1.2       1.2       2.3       4         0
+     2.3       P         2.3       3         0
+     3         P         P         3         0
+     4         P         P         P         0
+     P         P         P         P         P

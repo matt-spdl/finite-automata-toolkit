@@ -1,0 +1,35 @@
+informations de l'automate 40:
+
+automate initial:
+
+     État      a         b
+E/S  0         --        1,2
+E    1         0,2       2
+S    2         0         --
+
+automate standardisé:
+
+     État      a         b
+S    0         --        1,2
+     1         0,2       2
+S    2         0         --
+E/S  Es        0,2       1,2
+
+automate déterministe:
+
+     État      a         b
+S    0         --        1.2
+E/S  0.1       0.2       1.2
+S    0.2       0         1.2
+S    1.2       0.2       2
+S    2         0         --
+
+automate minimisé et complet:
+
+     État      a         b
+S    0         P         1.2
+E/S  0.1       0.2       1.2
+S    0.2       0         1.2
+S    1.2       0.2       2
+S    2         0         P
+     P         P         P

@@ -1,0 +1,31 @@
+informations de l'automate 14:
+
+automate initial:
+
+     État      a         b         c         d
+E    0         0         2         3         1
+S    1         --        --        --        1
+     2         --        2         3         1
+     3         --        --        3         1
+
+automate standardisé:
+
+     État      a         b         c         d
+     0         0         2         3         1
+S    1         --        --        --        1
+     2         --        2         3         1
+     3         --        --        3         1
+E    Es        0         2         3         1
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a         b         c         d
+E    0         0         2         3         1
+S    1         P         P         P         1
+     2         P         2         3         1
+     3         P         P         3         1
+     P         P         P         P         P

@@ -1,0 +1,27 @@
+informations de l'automate 11:
+
+automate initial:
+
+     État      a         b
+E    0         2         3
+     1         3         3
+S    2         1         0
+     3         3         3
+
+automate standardisé:
+
+     État      a         b
+     0         2         3
+     1         3         3
+S    2         1         0
+     3         3         3
+E    Es        2         3
+
+l'automate est déjà déterministe
+
+automate minimisé et complet:
+
+     État      a         b
+E    0         2         1
+     1         1         1
+S    2         1         0
