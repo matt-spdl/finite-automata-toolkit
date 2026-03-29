@@ -83,6 +83,8 @@ def read_automaton_from_file(filename) -> Automaton:
 
     # Ligne 2 : alphabet
     alphabet = _read_symbols_line(lines[1], filename)
+    for symbol in alphabet:
+        automaton.add_symbol(symbol)
 
     # Ligne 3 : états initiaux
     initial_states = _read_states_line(
@@ -109,5 +111,5 @@ def read_automaton_from_file(filename) -> Automaton:
 
 if __name__ == "__main__":
     # Exemple
-    automaton = read_automaton_from_file("../automata_files/automate.exemple.txt")
-    print(automaton)
+    a = read_automaton_from_file("C:/Users/matte/dev/finite-automata-toolkit/automata_files/a44.txt")
+    print(a)
