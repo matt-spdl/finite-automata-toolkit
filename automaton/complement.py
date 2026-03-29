@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     automaton = read_automaton_from_file("C:/Users/Louis/PycharmProjects/finite-automata-toolkit/automata_files/automate.exemple.txt")
     print(automaton)
-    d_automaton = determiniser(automaton)
+    d_automaton = determinize(automaton)
     print(d_automaton)
     dc_automaton = completion(d_automaton)
     print(dc_automaton)
