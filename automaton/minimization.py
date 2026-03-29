@@ -163,7 +163,6 @@ def breakClass(Minimize, Group, reGroup):
                         N_reGroup[str(source)] = []
                     N_reGroup[str(source)].append(source2)
 
-
     return N_reGroup
 
 
@@ -181,8 +180,7 @@ def reCreateAutomaton(self, Minimize):
     for source, values in Minimize.items():
         for mini in values:
             for symbol, targets in mini.items():
-                for target in targets:
-                    New_automaton.add_transition(source, symbol, target)
+                    New_automaton.add_transition(source, symbol, targets)
                     if source in self.initial_states:
                         New_automaton.add_initial_state(source)
                     if source in self.final_states:
@@ -214,5 +212,4 @@ def Minimization(self):
     if result == self:
         print(" ")
         print("L'automate est déja minimisé")
-        print(" ")
     return result
