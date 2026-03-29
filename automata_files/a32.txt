@@ -1,5 +1,5 @@
 Automate 32
-a b c
+a b c #
 0
 21
 0 # 1

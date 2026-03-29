@@ -31,8 +31,8 @@ def get_epsilon_closure(automate, etats_liste):
     while pile:
         etat = pile.pop()
         # Vérifie si l'état possède des transitions 'epsilon'
-        if etat in automate.transitions and 'epsilon' in automate.transitions[etat]:
-            for cible in automate.transitions[etat]['epsilon']:
+        if etat in automate.transitions and '#' in automate.transitions[etat]:
+            for cible in automate.transitions[etat]['#']:
                 if cible not in fermeture:
                     fermeture.add(cible)
                     pile.append(cible)
@@ -67,7 +67,7 @@ def determinize(and_origine):
     ad_final = Automaton()
 
     # L'alphabet final est celui d'origine, moins le symbole 'epsilon' s'il existe
-    ad_final.alphabet = {sym for sym in and_origine.alphabet if sym != 'epsilon'}
+    ad_final.alphabet = {sym for sym in and_origine.alphabet if sym != '#'}
 
     # Calcul de l'état initial
     etat_initial_liste = get_epsilon_closure(and_origine, and_origine.initial_states)
