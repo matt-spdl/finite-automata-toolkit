@@ -1,6 +1,16 @@
 # Bastien
 from automaton import Automaton
 
+
+def is_complete (automate):
+    for i in automate.states:
+        if i not in automate.transitions:
+            return False
+        for j in automate.alphabet:
+            if j not in automate.transitions[i]:
+                return False
+    return True
+
 def completion (old_automaton):
     """
             make a complete version of the automaton given.
@@ -8,7 +18,8 @@ def completion (old_automaton):
             Args:
                 old_automaton : the automaton we want to complete
     """
-
+    if is_complete(old_automaton):
+        raise ValueError ("L'automate est déjà copmlet")
     "copie de l'automate"
     new_automaton = old_automaton.copy()
 

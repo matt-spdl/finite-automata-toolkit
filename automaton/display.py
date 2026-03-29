@@ -25,52 +25,59 @@ def _get_state_type(state: str, automaton: Automaton) -> str:
     # Retourne "", "E", "S" ou "E/S" selon le cas
     return "/".join(types)
 
-def _display_header(alphabet, cell_size: int) -> None:
+def _format_header(alphabet, cell_size: int) -> str:
     # Crée la première ligne du tableau :
     # - première colonne : type d'état
     # - deuxième colonne : nom de l'état
     # - colonnes suivantes : symboles de l'alphabet
-    row = [
-        _format_cell("", CELL_SIZE_STATE_TYPE),
-        _format_cell("État", cell_size),
-    ]
+    row = []
+    row.append(_format_cell("", CELL_SIZE_STATE_TYPE))
+    row.append(_format_cell("État", cell_size))
 
     # Ajoute une colonne pour chaque symbole de l'alphabet
     for symbol in alphabet:
         row.append(_format_cell(symbol, cell_size))
 
-    print("".join(row))
+    return "".join(row)
 
-def _display_row(state: str, automaton: Automaton, cell_size: int) -> None:
+def _format_row(state: str, automaton: Automaton, cell_size: int) -> str:
     # Crée une ligne du tableau pour un état {state} donné
-    row = [
-        _format_cell(
-            _get_state_type(state, automaton),
-            CELL_SIZE_STATE_TYPE
-        ),
-        _format_cell(state, cell_size),
-    ]
+    row = []
+    row.append(_format_cell(_get_state_type(state, automaton), CELL_SIZE_STATE_TYPE))
+    row.append(_format_cell(state, cell_size))
 
     # Pour chaque symbole, récupère les états accessibles depuis l'état courant
     for symbol in automaton.alphabet:
         next_states = automaton.get_target_states(state, symbol)
-        row.append(
-            _format_cell(_format_transition(next_states),
-            cell_size)
-        )
+        row.append(_format_cell(_format_transition(next_states), cell_size))
 
-    print("".join(row))
+    return "".join(row)
 
-def _display_rows(automaton: Automaton, cell_size: int) -> None:
-    # Affiche une ligne pour chaque état de l'automate
+def get_automaton_table(automaton: Automaton) -> list[str]:
+    """
+    Renvoie un tableau de lignes formatées représentant l'automate.
+    Chaque élément de la liste correspond à une ligne du tableau.
+    """
+    table = []
+
+    # Ajoute l'en-tête
+    header = _format_header(automaton.alphabet, CELL_SIZE)
+    table.append(header)
+
+    # Ajoute les lignes pour chaque état
     for state in automaton.states:
-        _display_row(state, automaton, cell_size)
+        row = _format_row(state, automaton, CELL_SIZE)
+        table.append(row)
+
+    return table
 
 def display_automaton_table(automaton: Automaton) -> None:
     # Affiche d'abord l'en-tête puis toutes les lignes de l'automate
-    _display_header(automaton.alphabet, CELL_SIZE)
-    _display_rows(automaton, CELL_SIZE)
+    table = get_automaton_table(automaton)
+    for line in table:
+        print(line)
 
 if __name__ == "__main__":
     automaton = read_automaton_from_file("../automata_files/automate.exemple.txt")
     display_automaton_table(automaton)
+    print(get_automaton_table(automaton))
