@@ -1,7 +1,17 @@
 # Louis
 
 from automaton import Automaton
-from properties import is_standard
+
+def is_standard (automate):
+    """vérifie si l'automate donné en paramètre possède seulement 1 état initial et aucune transition dans cet état"""
+    if len(automate.initial_states)>1:
+        return False
+    for i in automate.transitions:
+        for j in automate.transitions[i]:
+            for k in automate.transitions[i][j]:
+                if k in automate.initial_states:
+                    return False
+    return True
 
 def standardization(automaton : Automaton ):
     if is_standard(automaton):
