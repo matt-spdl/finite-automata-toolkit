@@ -17,7 +17,7 @@ def is_determinist(automate):
     # Aucune transition multiple pour un même caractère et pas de transitions epsilon
     for etat in automate.transitions:
         for symbole in automate.transitions[etat]:
-            if symbole == 'epsilon':
+            if symbole == '#':
                 return False  # La simple présence d'un epsilon rend l'automate non déterministe
             if len(automate.transitions[etat][symbole]) > 1:
                 return False
