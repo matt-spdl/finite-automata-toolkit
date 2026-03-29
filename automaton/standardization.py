@@ -1,6 +1,6 @@
 # Louis
 
-from automaton import Automaton
+from .automaton_class import Automaton
 
 def is_standard (automate):
     """vérifie si l'automate donné en paramètre possède seulement 1 état initial et aucune transition dans cet état"""
@@ -14,6 +14,19 @@ def is_standard (automate):
     return True
 
 def standardization(automaton : Automaton ):
+    """
+    Standardise l'automate donné : crée un unique état initial "Es" sans transitions entrantes.
+    Si l'automate est déjà standardisé, une exception est levée.
+
+    Args:
+        automaton : l'automate à standardiser.
+
+    Returns:
+        Un nouvel automate standardisé.
+
+    Raises:
+        ValueError : si l'automate est déjà standardisé.
+    """
     if is_standard(automaton):
         raise ValueError(f"L'automate {automaton.name} est déjà standardisé")
     else:

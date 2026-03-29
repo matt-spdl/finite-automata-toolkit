@@ -1,6 +1,6 @@
 # Mathias
 
-from automaton import Automaton
+from .automaton_class import Automaton
 
 def separationTerminal(self):
     """
@@ -68,7 +68,7 @@ def regroup(self, Group):
 
 def assemble(Group_NT, Group_T):
     """
-            Assemble les deux dicctionnaires de listes des états terminaux et des états non-terminaux.
+            Assemble les deux dictionnaires de listes des états terminaux et des états non-terminaux.
 
             Args:
                 deux dictionnaires avec des listes en valeurs
@@ -115,9 +115,9 @@ def classification(self, reGroup):
 
 def deleteUselessState(Group, reGroup):
     """
-            Reprend les classes formés précdemment et retire les états en doublon à condition que :
+            Reprend les classes formées précédemment et retire les états en doublon à condition que :
             -Les états viennent de la même classe
-            -Les étas ont les mêmes classes en cible
+            -Les états ont les mêmes classes en cible
 
             Args:
                  un dictionnaire avec des listes en valeurs, Un dictionnaire contenant un dictionnaire en valeur dans un set
@@ -192,7 +192,7 @@ def reCreateAutomaton(self, Minimize):
 
 def Minimization(self):
     """
-           Fonction de minimisation avec toues les fonctions étape par étape
+           Fonction de minimisation avec toutes les fonctions étape par étape
 
             Args:
                  Un automate

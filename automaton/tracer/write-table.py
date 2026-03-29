@@ -5,6 +5,13 @@ from automaton.minimization import *
 from automaton.completion import *
 
 def write_automatons(file):
+    """
+    Affiche l'automate initial, sa version déterministe (si nécessaire),
+    puis sa version minimisée et complète.
+
+    Args:
+        file : le chemin vers le fichier de l'automate.
+    """
     new_automaton=read_automaton_from_file(file)
     print("automate initial:")
     print("")
@@ -28,6 +35,7 @@ def write_automatons(file):
     display_automaton_table(minimized_automaton)
 
 def choose_automaton():
+    """Parcourt tous les automates (1 à 44) et affiche leurs informations."""
     choice=1
     while choice<45:
         match choice:

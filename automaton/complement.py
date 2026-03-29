@@ -1,9 +1,19 @@
 # Louis
-from automaton import Automaton
-from automaton import determinize
-from automaton import completion
+from .automaton_class import Automaton
+from .determinization import determinize
+from .completion import completion
 
 def complementarization(automaton : Automaton):
+    """
+    Calcule l'automate complémentaire de l'automate donné.
+    L'automate doit être déterministe et complet avant d'appeler cette fonction.
+
+    Args:
+        automaton : l'automate dont on veut le complémentaire.
+
+    Returns:
+        Un nouvel automate dont les états finaux sont les états non-finaux de l'automate d'origine.
+    """
 
     # On utilise un automate Déterministe et Complet pour cette fonction
 
@@ -34,7 +44,7 @@ def complementarization(automaton : Automaton):
 
 if __name__ == "__main__":
 
-    from automaton import read_automaton_from_file
+    from .file_manager import read_automaton_from_file
 
     automaton = read_automaton_from_file("C:/Users/Louis/PycharmProjects/finite-automata-toolkit/automata_files/automate.exemple.txt")
     print(automaton)

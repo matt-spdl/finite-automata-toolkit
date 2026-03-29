@@ -1,11 +1,20 @@
-from automaton import Automaton
+from .automaton_class import Automaton
 
 def is_determinist(automate):
+    """
+    Vérifie si l'automate est déterministe.
+
+    Args:
+        automate : l'automate à vérifier.
+
+    Returns:
+        True si l'automate est déterministe, False sinon.
+    """
     # Il doit avoir une seule entrée
     if len(automate.initial_states) != 1:
         return False
 
-        # Aucune transition multiple pour un même caractère et pas de transitions epsilon
+    # Aucune transition multiple pour un même caractère et pas de transitions epsilon
     for etat in automate.transitions:
         for symbole in automate.transitions[etat]:
             if symbole == 'epsilon':
@@ -16,6 +25,15 @@ def is_determinist(automate):
 
 
 def formate_name_state(liste_etats):
+    """
+    Formate un nom d'état composé à partir d'une liste d'états.
+
+    Args:
+        liste_etats : la liste des états à fusionner.
+
+    Returns:
+        Une chaîne de caractères représentant l'état composé (ex : "0.1.2").
+    """
     # On trie et on joint les noms d'états pour former l'état composé.
     return ".".join(sorted(str(e) for e in set(liste_etats)))
 

@@ -3,22 +3,28 @@ import copy
 AUTOMATON_DEFAULT_NAME = "Automate X"
 
 class OrderedSet:
+    """Ensemble ordonné qui maintient les éléments triés et sans doublons."""
     def __init__(self):
+        """Initialise un ensemble ordonné vide."""
         self._items = []
 
     def add(self, item):
+        """Ajoute un élément s'il n'est pas déjà présent, puis trie l'ensemble."""
         if item not in self._items:
             self._items.append(item)
             self._sort()
 
     def remove(self, item):
+        """Supprime un élément de l'ensemble (lève ValueError s'il est absent)."""
         self._items.remove(item)
 
     def discard(self, item):
+        """Supprime un élément s'il est présent, sans lever d'erreur sinon."""
         if item in self._items:
             self._items.remove(item)
 
     def clear(self):
+        """Vide l'ensemble."""
         self._items.clear()
 
     def _sort(self):
@@ -49,17 +55,17 @@ class OrderedSet:
 
 class Automaton:
     """
-    A class representing a finite automaton, which consists of states, an alphabet, transitions,
-    and designated initial and final states.
+    Classe représentant un automate fini, composé d'états, d'un alphabet,
+    de transitions, et d'états initiaux et finaux.
     """
 
     def __init__(self, name = AUTOMATON_DEFAULT_NAME):
         """
-        Initializes an empty automaton with:
-        - A set of states.
-        - A set of alphabet symbols.
-        - An empty set of final states.
-        - A dictionary for transitions.
+        Initialise un automate vide avec :
+        - Un ensemble d'états.
+        - Un alphabet.
+        - Un ensemble d'états finaux vide.
+        - Un dictionnaire de transitions vide.
         """
         self.name = name
         self.states = OrderedSet()
@@ -70,81 +76,83 @@ class Automaton:
 
     def add_state(self, state):
         """
-        Adds a state to the automaton.
+        Ajoute un état à l'automate.
 
         Args:
-            state: The state to be added.
+            state : l'état à ajouter.
         """
         self.states.add(state)
 
     def add_symbol(self, symbol):
         """
-        Adds a symbol to the automaton's alphabet.
+        Ajoute un symbole à l'alphabet de l'automate.
 
         Args:
-            symbol: The symbol to be added to the alphabet.
+            symbol : le symbole à ajouter.
         """
         self.alphabet.add(symbol)
 
     def add_initial_state(self, state):
         """
-        Adds an initial state to the automaton.
+        Ajoute un état initial à l'automate.
 
         Args:
-            state: The state to be added as an initial state.
+            state : l'état à définir comme état initial.
         """
         self.add_state(state)
         self.initial_states.add(state)
 
     def add_final_state(self, state):
         """
-        Adds a final state to the automaton.
+        Ajoute un état final à l'automate.
 
         Args:
-            state: The state to be added as a final state.
+            state : l'état à définir comme état final.
         """
         self.add_state(state)
         self.final_states.add(state)
 
     def add_transition(self, source, symbol, target):
         """
-        Adds a transition to the automaton.
+        Ajoute une transition à l'automate.
 
         Args:
-            source: The source state of the transition.
-            symbol: The symbol triggering the transition.
-            target: The target state of the transition.
+            source : l'état source de la transition.
+            symbol : le symbole déclenchant la transition.
+            target : l'état cible de la transition.
         """
         self.add_state(target)
         self.add_state(source)
         self.alphabet.add(symbol)
 
-        # Initialize the transition dictionary for the new state if it doesn't exist
+        # Initialise le dictionnaire de transitions pour le nouvel état s'il n'existe pas
         if source not in self.transitions:
             self.transitions[source] = dict()
 
-        # Create the transition if it doesn't exist
+        # Crée la transition si elle n'existe pas encore
         if symbol not in self.transitions[source]:
             self.transitions[source][symbol] = OrderedSet()
 
         self.transitions[source][symbol].add(target)
 
     def is_final_state(self, state):
+        """Retourne True si l'état donné est un état final."""
         return state in self.final_states
 
     def is_initial_state(self, state):
+        """Retourne True si l'état donné est un état initial."""
         return state in self.initial_states
 
     def get_target_states(self, state, symbol):
         """
-        Retrieves the set of target states for a given state and symbol.
+        Retourne l'ensemble des états cibles pour un état et un symbole donnés.
 
         Args:
-            state: The current state.
-            symbol: The symbol triggering the transition.
+            state : l'état courant.
+            symbol : le symbole déclenchant la transition.
 
         Returns:
-            A set of target states. Returns an empty set if no transition exists.
+            Un ensemble d'états cibles. Retourne un ensemble vide si aucune transition n'existe.
         """
         if state in self.transitions and symbol in self.transitions[state]:
             return self.transitions[state][symbol]
@@ -152,20 +160,21 @@ class Automaton:
 
     def get_transitions_from_state(self, state):
         """
-        Retrieves all transitions for a given state.
+        Retourne toutes les transitions d'un état donné.
 
         Args:
-            state: The state whose transitions are to be retrieved.
+            state : l'état dont on veut récupérer les transitions.
 
         Returns:
-            A dictionary of transitions for the given state. Returns an empty dictionary if the state has no transitions.
+            Un dictionnaire de transitions pour l'état donné.
+            Retourne un dictionnaire vide si l'état n'a pas de transitions.
         """
         if state in self.transitions:
             return self.transitions[state]
         return dict()
 
     def copy(self):
-        """Creates a deep copy of the automaton."""
+        """Crée une copie profonde de l'automate."""
         new_automaton = Automaton(self.name)
         new_automaton.states = copy.deepcopy(self.states)
         new_automaton.alphabet = copy.deepcopy(self.alphabet)
@@ -176,6 +185,7 @@ class Automaton:
         return new_automaton
 
     def __repr__(self):
+        """Retourne une représentation textuelle de l'automate."""
         string = [
             f"Nom : {self.name}",
             f"États : {self.states}",
@@ -196,6 +206,7 @@ class Automaton:
         return "\n".join(string)
 
     def __eq__(self, other):
+        """Vérifie l'égalité entre deux automates (états, alphabet, transitions identiques)."""
         if not isinstance(other, Automaton):
             return NotImplemented
         if self.states != other.states:
