@@ -1,7 +1,7 @@
-from .utils import *
+from automaton.menu.utils import *
 
 class MenuOption:
-    """Représente une option de menu avec un libellé et une action associée."""
+    """Représente une option de menu avec un titre et une action associée."""
     def __init__(self, label, action):
         """
         Args:

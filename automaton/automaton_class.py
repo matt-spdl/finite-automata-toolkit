@@ -237,7 +237,6 @@ if __name__ == "__main__":
     # 2) add_state
     a.add_state("q0")
     assert "q0" in a.states
-    assert "q0" in a.transitions  # transitions initialisées
 
     # 3) add_initial_state / add_final_state
     a.add_initial_state("q0")

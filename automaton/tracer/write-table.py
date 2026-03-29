@@ -4,6 +4,67 @@ from automaton.display import *
 from automaton.minimization import *
 from automaton.completion import *
 from automaton.standardization import *
+import os
+
+
+def write_and_print_automatons(file):
+    '''
+    Affiche et enregistre les informations d'un automate dans un fichier texte
+    '''
+
+    # 🔹 extraire "a1" depuis "automata_files/a1.txt"
+    base_name = os.path.basename(file)       # a1.txt
+    name_without_ext = os.path.splitext(base_name)[0]  # a1
+
+    output_filename = f"trace_{name_without_ext}.txt"
+
+    with open(output_filename, "w", encoding="utf-8") as f:
+
+        def write_and_print(text=""):
+            print(text)
+            f.write(text + "\n")
+
+        # récupération de l'automate
+        new_automaton = read_automaton_from_file(file)
+
+        # automate initial
+        write_and_print("automate initial:\n")
+        table = display_automaton_table(new_automaton)
+        write_and_print(table)
+
+        # standardisation
+        if not is_standard(new_automaton):
+            write_and_print("\nautomate standardisé:\n")
+            std = standardization(new_automaton)
+            table = display_automaton_table(std)
+            write_and_print(table)
+        else:
+            write_and_print("\nl'automate est déjà standard")
+
+        # déterminisation
+        if not is_determinist(new_automaton):
+            determinize_automaton = determinize(new_automaton)
+            write_and_print("\nautomate déterministe:\n")
+            table = display_automaton_table(determinize_automaton)
+            write_and_print(table)
+        else:
+            determinize_automaton = new_automaton
+            write_and_print("\nl'automate est déjà déterministe")
+
+        # minimisation + complétion
+        if is_complete(determinize_automaton):
+            minimized_automaton = Minimization(determinize_automaton)
+        else:
+            minimized_automaton = Minimization(completion(determinize_automaton))
+
+        write_and_print("\nautomate minimisé et complet:\n")
+        table = display_automaton_table(minimized_automaton)
+        write_and_print(table)
+
+    print(f"\n✅ Résultats écrits dans : {output_filename}")
+
+
+
 
 def write_automatons(file):
     """

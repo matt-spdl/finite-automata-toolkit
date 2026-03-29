@@ -1,5 +1,5 @@
 from pathlib import Path
-from .automaton_class import Automaton
+from automaton.automaton_class import Automaton
 
 FILE_MIN_LINE_NUMBER = 4
 

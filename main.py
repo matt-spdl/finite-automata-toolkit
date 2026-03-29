@@ -1,6 +1,4 @@
-from automaton import read_automaton_from_file, display_automaton_table
+from automaton.menu import menu_main
 
-automaton = read_automaton_from_file("C:/Users/taube/Desktop/Cours EFREI/S4/Automates/finite-automata-toolkit-main/automata_files/automate.exemple.txt")
-print(automaton)
-
-display_automaton_table(automaton)
+if __name__ == "__main__":
+    menu_main()

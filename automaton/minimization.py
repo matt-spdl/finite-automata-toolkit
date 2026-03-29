@@ -1,6 +1,5 @@
 # Mathias
-
-from .automaton_class import Automaton
+from automaton.automaton_class import Automaton
 
 def separationTerminal(self):
     """
@@ -213,3 +212,11 @@ def Minimization(self):
         print(" ")
         print("L'automate est déja minimisé")
     return result
+
+if __name__ == "__main__":
+    from automaton.file_manager import read_automaton_from_file
+
+    automaton = read_automaton_from_file("C:/Users/matte/dev/finite-automata-toolkit/automata_files/a7.txt")
+    print(automaton)
+    min_automaton = Minimization(automaton)
+    print(min_automaton)

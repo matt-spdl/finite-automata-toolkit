@@ -1,0 +1,1 @@
+from .core import menu_main

@@ -1,4 +1,4 @@
-from .automaton_class import Automaton
+from automaton.automaton_class import Automaton
 
 def is_determinist(automate):
     """
