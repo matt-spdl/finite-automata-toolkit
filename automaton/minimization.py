@@ -1,6 +1,5 @@
 # Mathias
-
-from automaton.automaton import Automaton
+from automaton import Automaton
 
 def separationTerminal(self):
     """
