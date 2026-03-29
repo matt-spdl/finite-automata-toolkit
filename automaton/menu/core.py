@@ -110,7 +110,7 @@ def menu_determinization(automaton):
     try:
         det = determinize(automaton)
         print("Automate déterminisé.\n")
-        _display_before_after(automaton, det, "AFDC")
+        _display_before_after(automaton, det, "déterminisation")
         return det
     except Exception as e:
         print(f"Erreur : {e}\n")
@@ -137,7 +137,19 @@ def menu_complementary(automaton):
         # L'automate doit être déterministe et complet pour que cette fonction fonctionne, sinon une exception est levée.
         comp = complementarization(automaton)
         print("Automate complémentaire généré.\n")
-        _display_before_after(automaton, comp, "complémentaire")
+        _display_before_after(automaton, comp, "complémentarisation")
+        return comp
+    except Exception as e:
+        print(f"Erreur : {e}\n")
+        return automaton
+
+def menu_completion(automaton):
+    """Calcule l'automate complété."""
+    display_header(f"Completion ({automaton.name})")
+    try:
+        comp = completion(automaton)
+        print("Automate complété généré.\n")
+        _display_before_after(automaton, comp, "complétion")
         return comp
     except Exception as e:
         print(f"Erreur : {e}\n")
@@ -155,9 +167,10 @@ def menu_automaton(automaton):
         "1": MenuOption("Affichage", lambda: menu_display(current)),
         "2": MenuOption("Standardisation", lambda: menu_standardization(current)),
         "3": MenuOption("Déterminisation", lambda: menu_determinization(current)),
-        "4": MenuOption("Minimisation", lambda: menu_minimization(current)),
-        "5": MenuOption("Reconnaissance de mot", lambda: menu_word_recognition(current)),
+        "4": MenuOption("Completion", lambda: menu_completion(current)),
+        "5": MenuOption("Minimisation", lambda: menu_minimization(current)),
         "6": MenuOption("Complémentaire", lambda: menu_complementary(current)),
+        "7": MenuOption("Reconnaissance de mots", lambda: menu_word_recognition(current)),
     })
 
     while True:

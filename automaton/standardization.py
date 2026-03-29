@@ -30,7 +30,7 @@ def standardization(automaton : Automaton ):
         raise ValueError(f"L'automate {automaton.name} est déjà standardisé")
     else:
         # Copie des états et transitions dans le nouvel automate
-        std_automaton = Automaton()
+        std_automaton = Automaton(automaton.name)
 
         for state in automaton.states :
             std_automaton.add_state(state)

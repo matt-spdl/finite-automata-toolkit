@@ -217,8 +217,18 @@ class Automaton:
             return False
         if self.final_states != other.final_states:
             return False
-        if self.transitions != other.transitions:
+
+        # Comparaison des transitions
+        if set(self.transitions.keys()) != set(other.transitions.keys()):
             return False
+        for state, transitions in self.transitions.items():
+            if state not in other.transitions:
+                return False
+            if set(transitions.keys()) != set(other.transitions[state].keys()):
+                return False
+            for symbol, targets in transitions.items():
+                if set(targets) != set(other.transitions[state][symbol]):
+                    return False
         return True
 
 
