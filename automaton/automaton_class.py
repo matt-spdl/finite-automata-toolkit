@@ -77,9 +77,14 @@ class Automaton:
         """
         self.states.add(state)
 
-        # Initialize the transition dictionary for the new state if it doesn't exist
-        if state not in self.transitions:
-            self.transitions[state] = dict()
+    def add_symbol(self, symbol):
+        """
+        Adds a symbol to the automaton's alphabet.
+
+        Args:
+            symbol: The symbol to be added to the alphabet.
+        """
+        self.alphabet.add(symbol)
 
     def add_initial_state(self, state):
         """
@@ -113,6 +118,10 @@ class Automaton:
         self.add_state(target)
         self.add_state(source)
         self.alphabet.add(symbol)
+
+        # Initialize the transition dictionary for the new state if it doesn't exist
+        if source not in self.transitions:
+            self.transitions[source] = dict()
 
         # Create the transition if it doesn't exist
         if symbol not in self.transitions[source]:
@@ -175,12 +184,14 @@ class Automaton:
             f"États finaux : {self.final_states}",
             "Transitions :"
         ]
-
-        for source in self.transitions:
-            for symbol in self.transitions[source]:
-                targets = self.transitions[source][symbol]
-                for target in targets:
-                    string.append(f"  {source} --{symbol}--> {target}")
+        if len(self.transitions) == 0:
+            string.append("  (Aucune transition)")
+        else:
+            for source in self.transitions:
+                for symbol in self.transitions[source]:
+                    targets = self.transitions[source][symbol]
+                    for target in targets:
+                        string.append(f"  {source} --{symbol}--> {target}")
 
         return "\n".join(string)
 
