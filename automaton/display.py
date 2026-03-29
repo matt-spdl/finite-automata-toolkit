@@ -56,7 +56,9 @@ def _format_row(state: str, automaton: Automaton, cell_size: int) -> str:
 def get_min_cell_size(states) -> int:
     """Calcule la taille de cellule nécessaire pour afficher correctement les états de l'automate."""
     max_state_length = max(len(state) for state in states)
+    max_state_length += 2
     return max(CELL_SIZE, max_state_length)
+
 
 def get_automaton_table(automaton: Automaton) -> list[str]:
     """
