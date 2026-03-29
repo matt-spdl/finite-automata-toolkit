@@ -3,7 +3,7 @@ from automaton.determinization import is_determinist
 from automaton.completion import is_complete
 from automaton.automaton_class import Automaton
 
-def separationTerminal(automaton):
+def separationTerminal(automaton: Automaton):
     """
     Sépare les états dans deux dictionnaires
     Un dictionnaire qui regroupe tous les états terminaux avec leur cible sur des états terminaux ou non
@@ -42,7 +42,7 @@ def separationTerminal(automaton):
     return Group_NT, Group_T
 
 
-def regroup(automaton, Group):
+def regroup(automaton: Automaton, Group):
     """
     Regroupe les états terminaux (ou non) qui ont des cibles terminales ou non identiques
 
@@ -90,7 +90,7 @@ def assemble(Group_NT, Group_T):
 
     return result
 
-def classification(automaton, reGroup):
+def classification(automaton: Automaton, reGroup):
     """
     La fonction crée des classes (groupes) avec les groupes précédents formées
     et regroupe  dans un dictionnaire, tous les états de l'automates avec la classe de leur cible
@@ -167,7 +167,7 @@ def breakClass(Minimize, Group, reGroup):
     return N_reGroup
 
 
-def reCreateAutomaton(automaton, Minimize):
+def reCreateAutomaton(automaton: Automaton, Minimize):
     """
     Transforme notre résultat qui a la forme d'un dictionnaire en automate de notre classe
 
@@ -189,7 +189,7 @@ def reCreateAutomaton(automaton, Minimize):
 
     return New_automaton
 
-def Minimization(automaton):
+def Minimization(automaton: Automaton):
     """
    Fonction de minimisation avec toutes les fonctions étape par étape
 
@@ -216,11 +216,11 @@ def Minimization(automaton):
         reGroup = breakClass(Minimize_str, Group, reGroup)
         Group = classification(automaton, reGroup)
         Minimize_dic, Minimize_str = deleteUselessState(Group, reGroup)
+
     result = reCreateAutomaton(automaton, Minimize_dic)
 
     if result == automaton:
-        print(" ")
-        print("L'automate est déja minimisé")
+        print("L'automate était déjà minimal.")
     return result
 
 if __name__ == "__main__":

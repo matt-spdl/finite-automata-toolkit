@@ -1,6 +1,6 @@
 from automaton.automaton_class import Automaton
 
-def is_determinist(automate):
+def is_determinist(automate: Automaton) -> bool:
     """
     Vérifie si l'automate est déterministe.
 
@@ -38,7 +38,7 @@ def formate_name_state(liste_etats):
     return ".".join(sorted(str(e) for e in set(liste_etats)))
 
 
-def get_epsilon_closure(automate, etats_liste):
+def get_epsilon_closure(automate: Automaton, etats_liste):
     """
     Calcule l'ensemble des états atteignables via des transitions epsilon (ou '#' / 'epsilon')
     Si l'automate n'a pas d'epsilon, cela retourne simplement la liste de départ.

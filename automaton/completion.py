@@ -1,7 +1,7 @@
 # Bastien
 from automaton.automaton_class import Automaton
 
-def is_complete(automate):
+def is_complete(automate: Automaton):
     """
     Vérifie si l'automate est complet, c'est-à-dire si chaque état possède
     une transition pour chaque symbole de l'alphabet.
@@ -20,7 +20,7 @@ def is_complete(automate):
                 return False
     return True
 
-def completion(old_automaton):
+def completion(old_automaton: Automaton):
     """
     Retourne une version complète de l'automate donné.
     Si l'automate est déjà complet, il est retourné tel quel.

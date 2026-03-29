@@ -1,8 +1,7 @@
 # Louis
-from automaton import is_determinist, is_complete
 from automaton.automaton_class import Automaton
-from automaton.determinization import determinize
-from automaton.completion import completion
+from automaton.determinization import is_determinist
+from automaton.completion import is_complete
 
 def complementarization(automaton : Automaton):
     """
