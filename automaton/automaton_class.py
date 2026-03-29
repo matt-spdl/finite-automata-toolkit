@@ -10,6 +10,7 @@ class OrderedSet:
     def add(self, item):
         if item not in self._items:
             self._items.append(item)
+            self._sort()
 
     def remove(self, item):
         self._items.remove(item)
@@ -20,6 +21,12 @@ class OrderedSet:
 
     def clear(self):
         self._items.clear()
+
+    def _sort(self):
+        try:
+            self._items.sort(key=lambda x: int(x))
+        except ValueError:
+            self._items.sort()
 
     def __contains__(self, item):
         return item in self._items
@@ -55,7 +62,7 @@ class Automaton:
         self.alphabet = OrderedSet()
         self.initial_states = OrderedSet()
         self.final_states = OrderedSet()
-        self.transitions = OrderedDict()
+        self.transitions = dict()
 
     def add_state(self, state):
         """
@@ -68,7 +75,7 @@ class Automaton:
 
         # Initialize the transition dictionary for the new state if it doesn't exist
         if state not in self.transitions:
-            self.transitions[state] = OrderedDict()
+            self.transitions[state] = dict()
 
     def add_initial_state(self, state):
         """
@@ -142,7 +149,7 @@ class Automaton:
         """
         if state in self.transitions:
             return self.transitions[state]
-        return OrderedDict()
+        return dict()
 
     def copy(self):
         """Creates a deep copy of the automaton."""
