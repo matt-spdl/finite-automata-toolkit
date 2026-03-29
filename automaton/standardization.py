@@ -5,7 +5,7 @@ from properties import is_standard
 
 def standardization(automaton : Automaton ):
     if is_standard(automaton):
-        return automaton
+        raise ValueError(f"L'automate {automaton.name} est déjà standardisé")
     else:
         # Copie des états et transitions dans le nouvel automate
         std_automaton = Automaton()
