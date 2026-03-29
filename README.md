@@ -35,6 +35,19 @@ Le projet demande également de réaliser un affichage des automates.
 - Thomas AUBERT s'occupe de la Déterminisation
 
 
+## ⚠️Comment lancer le projet ⚠️
+
+Pour lancer le projet, il suffit d'exécuter le fichier **main.py** et de suivre les instructions du menu. Pour sélectionner l'automate à traiter, il suffit de soit taper le nom de l'automate, soit 
+d'écrire le chemin absolu vers l'automate. 
+
+Si on veut ajouter des automates qui ne font pas parti de ceux déjà présent dans le dossier, les automates doivent respecter OBLIGATOIREMENT la structure suivante : 
+
+- Ligne 1 : nom de l'automate
+- Ligne 2 : liste des symboles de l’alphabet séparés par des espaces.
+- Ligne 3 : indices des états initiaux séparés par des espaces.
+- Ligne 4 : indices des états finaux séparés par des espaces.
+- Lignes 5 et suivantes : transitions sous la forme
+- <état de départ> <symbole> <état d’arrivée>
 
 
 
