@@ -1,6 +1,6 @@
 # Mathias
 
-from automaton.automaton import Automaton
+from automaton import Automaton
 
 def separationTerminal(self):
     """
@@ -87,6 +87,7 @@ def assemble(Group_NT, Group_T):
         result[str(i)] = values
         i += 1
 
+    print(result)
     return result
 
 def classification(self, reGroup):
@@ -138,15 +139,25 @@ def deleteUselessState(Group, reGroup):
         seen = []
 
     return result
+'''
+def newRegroup(Minimize, Regroup):
+    N_reGroup = {}
+    i=0
 
-def newRegroup(Minimize):
-    reGroup = {}
-    for source, values in Minimize.items():
-        if source not in reGroup:
-            reGroup[str(source)] = []
-        reGroup[str(source)].append(source)
-    return reGroup
+    for source,values in Regroup.items():
+        for source2,values2 in Minimize.items():
+            for j in range(len(values)):
+                if values[j] == source2:
+                    i+=1
+        if i > 1:
+            N_reGroup[str(source)] = source
+        else :
+            N_reGroup[str(source)] = values
+        i = 0
 
+    print(N_reGroup)
+    return N_reGroup
+'''
 
 def reCreateAutomaton(self, Minimize):
     """
@@ -187,12 +198,56 @@ def Minimization(self):
     reGroup = assemble(Group_NT, Group_T)
     Group = classification(self, reGroup)
     Minimize = deleteUselessState(Group, reGroup)
+    '''
     while len(Minimize) != len(reGroup):
-        reGroup = newRegroup(Minimize)
+        reGroup = newRegroup(Minimize, reGroup)
         Group = classification(self, reGroup)
         Minimize = deleteUselessState(Group, reGroup)
+    '''
     result = reCreateAutomaton(self, Minimize)
     print(result)
     return result
+
+
+A = Automaton()
+
+# États
+A.add_state("0")
+A.add_state("1")
+A.add_state("2")
+A.add_state("3")
+A.add_state("4")
+A.add_state("5")
+
+# État initial
+A.add_initial_state("0")
+
+# États finaux
+A.add_final_state("3")
+A.add_final_state("4")
+A.add_final_state("5")
+
+# Transitions
+A.add_transition("0", "a", "1")
+A.add_transition("0", "b", "0")
+
+A.add_transition("1", "a", "1")
+A.add_transition("1", "b", "2")
+
+A.add_transition("2", "a", "3")
+A.add_transition("2", "b", "0")
+
+# Une fois "aba" trouvé → on reste dans un état final
+A.add_transition("3", "a", "4")
+A.add_transition("3", "b", "5")
+
+A.add_transition("4", "a", "4")
+A.add_transition("4", "b", "5")
+
+A.add_transition("5", "a", "4")
+A.add_transition("5", "b", "5")
+
+print(A)
+Minimization(A)
 
 
