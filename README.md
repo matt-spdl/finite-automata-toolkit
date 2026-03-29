@@ -46,7 +46,7 @@ Si on veut ajouter des automates qui ne font pas parti de ceux déjà présent d
 - Ligne 2 : liste des symboles de l’alphabet séparés par des espaces.
 - Ligne 3 : indices des états initiaux séparés par des espaces.
 - Ligne 4 : indices des états finaux séparés par des espaces.
-- Lignes 5 et suivantes : transitions sous la forme : état de départ <symbole> état d’arrivée
+- Lignes 5 et suivantes : transitions sous la forme : <état de départ> `<symbole>` <état d’arrivée>
 
 
 
