@@ -1,0 +1,32 @@
+informations de l'automate 6:
+
+automate initial:
+
+     État      a         b
+S    0         --        --
+E    1         2         --
+S    2         --        --
+E    3         --        0
+
+automate standardisé:
+
+     État      a         b
+S    0         --        --
+     1         2         --
+S    2         --        --
+     3         --        0
+E    Es        2         0
+
+automate déterministe:
+
+     État      a         b
+S    0         --        --
+E    1.3       2         0
+S    2         --        --
+
+automate minimisé et complet:
+
+     État      a         b
+S    0         P         P
+E    1.3       0         0
+     P         P         P

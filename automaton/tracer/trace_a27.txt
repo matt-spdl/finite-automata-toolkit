@@ -1,0 +1,22 @@
+informations de l'automate 27:
+
+automate initial:
+
+     État      a         b
+S    0         0         0
+E    1         2         2
+     2         --        0
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a         b
+S    0         0         0
+E    1         2         2
+     2         P         0
+     P         P         P

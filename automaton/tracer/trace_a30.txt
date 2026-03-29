@@ -1,0 +1,21 @@
+informations de l'automate 30:
+
+automate initial:
+
+     État      a
+S    0         3
+E    1         2
+     2         3
+S    3         4
+S    4         0
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+automate minimisé et complet:
+
+     État      a
+E    1         2
+     2         3
+S    3         3

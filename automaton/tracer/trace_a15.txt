@@ -1,0 +1,31 @@
+informations de l'automate 15:
+
+automate initial:
+
+     État      a         b         c         d
+     0         0         --        --        --
+E    1         1         2         3         4
+     2         0         2         3         4
+     3         0         0         3         4
+S    4         0         0         0         4
+
+automate standardisé:
+
+     État      a         b         c         d
+     0         0         --        --        --
+     1         1         2         3         4
+     2         0         2         3         4
+     3         0         0         3         4
+S    4         0         0         0         4
+E    Es        1         2         3         4
+
+l'automate est déjà déterministe
+
+automate minimisé et complet:
+
+     État      a         b         c         d
+     0         0         0         0         0
+E    1         1         2         3         4
+     2         0         2         3         4
+     3         0         0         3         4
+S    4         0         0         0         4

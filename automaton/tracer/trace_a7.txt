@@ -1,0 +1,26 @@
+informations de l'automate 7:
+
+automate initial:
+
+     État      a
+S    0         --
+E    1         0,1
+
+automate standardisé:
+
+     État      a
+S    0         --
+     1         0,1
+E    Es        0,1
+
+automate déterministe:
+
+     État      a
+S    0.1       0.1
+E    1         0.1
+
+automate minimisé et complet:
+
+     État      a
+S    0.1       0.1
+E    1         0.1

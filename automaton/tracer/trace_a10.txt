@@ -1,0 +1,34 @@
+informations de l'automate 10:
+
+automate initial:
+
+     État      a         b
+E/S  0         1         --
+     1         2         2
+     2         3         --
+     3         4         4
+     4         0         --
+
+automate standardisé:
+
+     État      a         b
+S    0         1         --
+     1         2         2
+     2         3         --
+     3         4         4
+     4         0         --
+E/S  Es        1         --
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a         b
+E/S  0         1         P
+     1         2         2
+     2         3         P
+     3         4         4
+     4         0         P
+     P         P         P

@@ -1,0 +1,20 @@
+informations de l'automate 3:
+
+automate initial:
+
+     État      a
+E    0         1
+S    1         --
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a
+E    0         1
+S    1         P
+     P         P

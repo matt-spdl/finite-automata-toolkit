@@ -1,0 +1,25 @@
+informations de l'automate 12:
+
+automate initial:
+
+     État      a         b         c         d
+     0         --        0         --        1
+E/S  1         1         --        0         --
+
+automate standardisé:
+
+     État      a         b         c         d
+     0         --        0         --        1
+S    1         1         --        0         --
+E/S  Es        1         --        0         --
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a         b         c         d
+     0         P         0         P         1
+E/S  1         1         P         0         P
+     P         P         P         P         P

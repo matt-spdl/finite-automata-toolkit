@@ -1,0 +1,31 @@
+informations de l'automate 43:
+
+automate initial:
+
+     État      a         b
+E    0         0         0,1
+     1         2         --
+S    2         2         2
+
+automate standardisé:
+
+     État      a         b
+     0         0         0,1
+     1         2         --
+S    2         2         2
+E    Es        0         0,1
+
+automate déterministe:
+
+     État      a         b
+E    0         0         0.1
+     0.1       0.2       0.1
+S    0.1.2     0.2       0.1.2
+S    0.2       0.2       0.1.2
+
+automate minimisé et complet:
+
+     État      a         b
+E    0         0         0.1
+     0.1       0.2       0.1
+S    0.2       0.2       0.2

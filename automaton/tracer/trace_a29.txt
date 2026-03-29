@@ -1,0 +1,32 @@
+informations de l'automate 29:
+
+automate initial:
+
+     État      a
+S    0         4
+E    1         2,4
+     2         3
+S    3         0,2
+     4         3,5
+     5         0
+
+l'automate est déjà standard
+
+automate déterministe:
+
+     État       a
+S    0.2        3.4
+S    0.2.3.4    0.2.3.4.5
+S    0.2.3.4.5  0.2.3.4.5
+S    0.2.3.5    0.2.3.4
+E    1          2.4
+     2.4        3.5
+S    3.4        0.2.3.5
+S    3.5        0.2
+
+automate minimisé et complet:
+
+     État      a
+E    1         2.4
+     2.4       3.5
+S    3.5       3.5

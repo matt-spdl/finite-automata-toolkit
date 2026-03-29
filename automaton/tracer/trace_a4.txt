@@ -1,0 +1,18 @@
+informations de l'automate 4:
+
+automate initial:
+
+     État      a
+E/S  0         --
+S    1         --
+S    a         --
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+automate minimisé et complet:
+
+     État      a
+E/S  0         P
+     P         P

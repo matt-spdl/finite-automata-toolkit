@@ -1,0 +1,21 @@
+informations de l'automate 26:
+
+automate initial:
+
+     État      a         b
+     0         --        --
+E    1         2         2
+     2         0         3
+S    3         3         3
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+automate minimisé et complet:
+
+     État      a         b
+     0         0         0
+E    1         2         2
+     2         0         3
+S    3         3         3

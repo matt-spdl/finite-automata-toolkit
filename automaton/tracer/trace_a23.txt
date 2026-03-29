@@ -1,0 +1,26 @@
+informations de l'automate 23:
+
+automate initial:
+
+     État      a         b         c         d
+S    0         --        --        --        0
+E    1         2         --        --        --
+     2         2         3         --        --
+     3         --        3         4         --
+     4         --        --        4         0
+
+l'automate est déjà standard
+
+l'automate est déjà déterministe
+
+L'automate est déja minimisé
+
+automate minimisé et complet:
+
+     État      a         b         c         d
+S    0         P         P         P         0
+E    1         2         P         P         P
+     2         2         3         P         P
+     3         P         3         4         P
+     4         P         P         4         0
+     P         P         P         P         P
