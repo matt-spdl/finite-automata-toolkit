@@ -1,4 +1,3 @@
-from collections import OrderedDict
 import copy
 
 AUTOMATON_DEFAULT_NAME = "Automate X"
