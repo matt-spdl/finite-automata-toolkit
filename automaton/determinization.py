@@ -75,7 +75,27 @@ def get_symbol_transitions(automate, etats_liste, symbole):
 
 def determinize(and_origine):
     """
-    Fonction universelle de déterminisation pure (sans complétion)
+    Fonction universelle de déterminisation
+
+    1. Vérification préalable : S'assure que l'automate fourni n'est pas déjà
+       déterministe, sinon lève une erreur.
+
+    2. Initialisation et État initial : Crée l'AD et définit comme unique état initial
+       l'ensemble des états initiaux de l'AND, en y incluant leur
+       epsilon-fermeture.
+
+    3. Création des états composés : Construit dynamiquement les nouveaux états de l'AD,
+       qui sont de façon naturelle des ensembles constitués en états de l'AND d'origine.
+       L'algorithme utilise une file d'attente pour traiter ces nouveaux états un par un.
+
+    4. Identification des sorties : Marque un état composé comme terminal s'il
+       contient au moins un état terminal de l'automate d'origine.
+
+    5. Calcul des transitions : Pour chaque état composé traité et pour chaque caractère
+       de l'alphabet, l'algorithme met ensemble les cibles de ses composantes pour créer la nouvelle transition.
+
+    6. Condition d'arrêt : Le processus itératif s'arrête de lui-même car la boucle
+       se termine lorsqu'aucun nouvel état n'apparait.
     """
     # On ne déterminise pas un automate déjà déterministe
     if is_determinist(and_origine):
