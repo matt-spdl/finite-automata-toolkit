@@ -66,6 +66,14 @@ class Automaton:
         - Un alphabet.
         - Un ensemble d'états finaux vide.
         - Un dictionnaire de transitions vide.
+            Format :
+                {
+                    état_source: {
+                        symbole: set(état_cible1, état_cible2, ...),
+                        ...
+                    },
+                    ...
+                }
         """
         self.name = name
         self.states = OrderedSet()
@@ -73,6 +81,8 @@ class Automaton:
         self.initial_states = OrderedSet()
         self.final_states = OrderedSet()
         self.transitions = dict()
+
+
 
     def add_state(self, state):
         """
