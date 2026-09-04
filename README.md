@@ -1,13 +1,5 @@
 # finite-automata-toolkit
 
-## Contributeurs : 
-
-- Louis LEMONNIER
-- Mattéo SPINDLER
-- Mathias LEROY
-- Bastien POMMARD
-- Thomas AUBERT
-
 ## Objectifs du projet :
 
 L'objectif de ce projet est de réaliser un programme en python ou C pour réaliser des traitements automatiques sur des automates :
